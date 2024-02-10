@@ -1,5 +1,11 @@
+import EventForm from "../../(components)/EventForm";
+
 const EventPage = ({ params }) => {
-  return <div>{params.id}</div>;
+  return (
+    <div>
+      <EventForm />
+    </div>
+  );
 };
 
 export default EventPage;
