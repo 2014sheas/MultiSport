@@ -19,11 +19,11 @@ const formatTimeStamp = (timestamp) => {
 function EventCard({ event }) {
   return (
     <div className="flex flex-col bg-card hover:bg-card-hover rounded-md shadow-lg p-3 m-2">
-      <Link href={`/Events/${event.eventId}`} style={{ display: "contents" }}>
+      <Link href={`/events/${event.eventId}`} style={{ display: "contents" }}>
         <div className="flex mb-3">
           <div className="ml-auto"></div>
         </div>
-        <h4>{event.title}</h4>
+        <h4>{event.name}</h4>
         <hr className="h-px border-0 bg-page mb-2" />
         <p className="whitespace-pre-wrap">Event Description</p>
         <div className="flex-grow"></div>

@@ -3,7 +3,9 @@
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 
-const EventForm = () => {
+const EventForm = ({ event }) => {
+  console.log(event);
+  const EDITMODE = event._id !== "new";
   const router = useRouter();
 
   const handleChange = (e) => {
@@ -12,24 +14,48 @@ const EventForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const res = await fetch("/api/Events", {
-      method: "POST",
-      body: JSON.stringify({ formData }),
-      "Content-Type": "application/json",
-    });
-    if (!res.ok) {
-      throw new Error("Failed to create event" + res.status);
+
+    if (EDITMODE) {
+      const res = await fetch(`/api/Events/${event._id}`, {
+        method: "PUT",
+        body: JSON.stringify({ formData }),
+        "Content-Type": "application/json",
+      });
+      if (!res.ok) {
+        throw new Error("Failed to update event" + res.status);
+      }
+    } else {
+      const res = await fetch("/api/Events", {
+        method: "POST",
+        body: JSON.stringify({ formData }),
+        "Content-Type": "application/json",
+      });
+      if (!res.ok) {
+        throw new Error("Failed to create event" + res.status);
+      }
     }
+
+    router.refresh();
+    router.push("/");
   };
 
   const startingEventData = {
-    title: "",
+    name: "",
     eventId: "",
     eventType: "Tournament",
     date: "",
     fullPoints: true,
     status: "Upcoming",
   };
+
+  if (EDITMODE) {
+    startingEventData.name = event.name;
+    startingEventData.eventId = event.eventId;
+    startingEventData.eventType = event.eventType;
+    startingEventData.date = event.date;
+    startingEventData.fullPoints = event.fullPoints;
+    startingEventData.status = event.status;
+  }
 
   const [formData, setFormData] = useState(startingEventData);
 
@@ -43,12 +69,12 @@ const EventForm = () => {
         <h3>Create Event</h3>
         <label>Event Name</label>
         <input
-          id="title"
-          name="title"
+          id="name"
+          name="name"
           type="text"
           onChange={handleChange}
           required={true}
-          value={formData.title}
+          value={formData.name}
         />
         <label>Event ID</label>
         <input
@@ -91,7 +117,7 @@ const EventForm = () => {
           <option value="true">True</option>
           <option value="false">False</option>
         </select>
-        <button type="submit">Create</button>
+        <button type="submit">{EDITMODE ? "Update" : "Create"}</button>
       </form>
     </div>
   );

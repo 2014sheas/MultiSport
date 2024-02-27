@@ -5,7 +5,7 @@ mongoose.Promise = global.Promise;
 
 const EventSchema = new Schema(
   {
-    title: {
+    name: {
       type: String,
       required: true,
     },
