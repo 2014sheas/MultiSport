@@ -44,16 +44,11 @@ const TeamForm = ({ team }) => {
     abbreviation: "",
   };
 
-  console.log(team);
-  console.log(EDITMODE);
-
   if (EDITMODE) {
     startingTeamData.name = team.name;
     startingTeamData.teamId = team.teamId;
     startingTeamData.abbreviation = team.abbreviation;
   }
-
-  console.log(startingTeamData);
 
   const [formData, setFormData] = useState(startingTeamData);
 

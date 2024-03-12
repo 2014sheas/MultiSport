@@ -6,7 +6,6 @@ export async function POST(req) {
     console.log("Creating Player");
     const body = await req.json();
     const playerData = body.formData;
-    console.log("Player Data: ", playerData);
     await Player.create(playerData);
 
     return NextResponse.json({ message: "Player Created" }, { status: 201 });
@@ -26,7 +25,6 @@ export async function GET() {
 }
 
 export async function DELETE() {
-  console.log("Resetting Players");
   try {
     await Player.deleteMany({});
     return NextResponse.json({ message: "Players Reset" }, { status: 200 });

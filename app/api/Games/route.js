@@ -6,7 +6,6 @@ export async function POST(req) {
     console.log("Creating Game");
     const body = await req.json();
     const gameData = body.formData;
-    console.log("Game Data: ", gameData);
     await Game.create(gameData);
 
     return NextResponse.json({ message: "Game Created" }, { status: 201 });
@@ -27,8 +26,6 @@ export async function GET() {
 
 export async function DELETE(req) {
   const body = await req.json();
-  console.log("Resetting Games");
-  console.log("Event ID: ", body);
   try {
     await Game.deleteMany({ event: body.eventId });
     return NextResponse.json({ message: "Games Reset" }, { status: 200 });

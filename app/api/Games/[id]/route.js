@@ -14,8 +14,7 @@ export async function GET(req, { params }) {
 export async function PUT(req, { params }) {
   try {
     const { id } = params;
-    const body = await req.json();
-    const gameData = body.formData;
+    const gameData = await req.json();
     const updatedGameData = await Game.findByIdAndUpdate(id, {
       ...gameData,
     });

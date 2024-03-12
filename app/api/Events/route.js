@@ -6,7 +6,6 @@ export async function POST(req) {
     console.log("Creating Event");
     const body = await req.json();
     const eventData = body.formData;
-    console.log("Event Data: ", eventData);
     await Event.create(eventData);
 
     return NextResponse.json({ message: "Event Created" }, { status: 201 });

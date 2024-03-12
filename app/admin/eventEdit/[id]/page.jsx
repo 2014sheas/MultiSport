@@ -14,13 +14,11 @@ const getEventById = async (id) => {
 
 const EventEditPage = async ({ params }) => {
   const EDITMODE = params.id !== "new";
-  console.log(params);
   let eventData = {};
   let updateEventData = {};
 
   if (EDITMODE) {
     eventData = await getEventById(params.id);
-    console.log(eventData);
     updateEventData = eventData.foundEvent;
   } else {
     updateEventData = {
@@ -28,7 +26,6 @@ const EventEditPage = async ({ params }) => {
     };
   }
 
-  console.log(updateEventData);
   return <EventForm event={updateEventData} />;
 };
 

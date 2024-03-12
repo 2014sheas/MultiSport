@@ -42,6 +42,26 @@ const GameSchema = new Schema({
     type: String,
     required: true,
   },
+  type: {
+    type: String,
+    required: true,
+  },
+  round: {
+    type: Number,
+    required: true,
+  },
+  winnerNextGame: {
+    type: String,
+    required: false,
+  },
+  loserNextGame: {
+    type: String,
+    required: false,
+  },
+  nextGamePosition: {
+    type: String,
+    required: false,
+  },
 });
 
 const Game = mongoose.models.Game || mongoose.model("Game", GameSchema);

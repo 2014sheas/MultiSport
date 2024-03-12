@@ -34,20 +34,36 @@ const getPlayers = async () => {
   }
 };
 
+const getGames = async () => {
+  try {
+    const res = await fetch(`http://localhost:3000/api/Games`, {
+      cache: "no-store",
+    });
+    return res.json();
+  } catch (error) {
+    console.log("Failed to get games", error);
+  }
+};
+
 const EventPage = async ({ params }) => {
   let eventData = await getEventById(params.id);
   let teams = await getTeams();
   let players = await getPlayers();
+  let games = await getGames();
+  let eventGames = games.filter((game) => game.event == params.id);
 
   eventData = eventData.foundEvent;
-  teams = teams;
-  players = players;
 
   if (eventData === undefined) {
     return <div>Event Not Found</div>;
   } else if (eventData.eventType == "Tournament") {
     return (
-      <TournamentEvent event={eventData} teams={teams} players={players} />
+      <TournamentEvent
+        event={eventData}
+        teams={teams}
+        players={players}
+        games={eventGames}
+      />
     );
   } else {
     return <ScoredEvent event={eventData} teams={teams} players={players} />;

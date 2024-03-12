@@ -4,7 +4,6 @@ import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 
 const EventForm = ({ event }) => {
-  console.log(event);
   const EDITMODE = event._id !== "new";
   const router = useRouter();
 
