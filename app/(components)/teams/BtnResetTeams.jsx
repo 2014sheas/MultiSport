@@ -15,6 +15,7 @@ function BtnResetTeams() {
         teamId: "team" + i,
         members: [],
         abbreviation: "T" + i,
+        totalPoints: 0,
       };
       const res = await fetch("/api/Teams", {
         method: "POST",

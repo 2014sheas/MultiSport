@@ -27,7 +27,7 @@ const TeamSchema = new Schema(
       type: Array,
       required: false,
     },
-    thrird: {
+    third: {
       type: Array,
       required: false,
     },
@@ -39,7 +39,15 @@ const TeamSchema = new Schema(
       type: Array,
       required: false,
     },
+    sixth: {
+      type: Array,
+      required: false,
+    },
     seventh: {
+      type: Array,
+      required: false,
+    },
+    eighth: {
       type: Array,
       required: false,
     },

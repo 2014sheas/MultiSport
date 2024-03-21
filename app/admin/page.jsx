@@ -1,6 +1,7 @@
 import BtnResetPlayers from "../(components)/players/BtnResetPlayers";
 import BtnResetTeams from "../(components)/teams/BtnResetTeams";
 import EditDropdown from "../(components)/EditDropdown";
+import BtnUpdatePoints from "../(components)/events/tournament/BtnUpdatePoints";
 
 const getEvents = async () => {
   try {
@@ -48,6 +49,9 @@ const AdminPage = async () => {
       <BtnResetTeams />
       <br />
       <BtnResetPlayers />
+      <br />
+      <br />
+      <BtnUpdatePoints />
     </div>
   );
 };

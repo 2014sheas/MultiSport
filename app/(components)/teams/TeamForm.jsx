@@ -15,6 +15,7 @@ const TeamForm = ({ team }) => {
     e.preventDefault();
 
     if (EDITMODE) {
+      formData.sixth = ["Basbeall", "Basketball", "Football", "Soccer"];
       const res = await fetch(`/api/Teams/${team._id}`, {
         method: "PUT",
         body: JSON.stringify({ formData }),

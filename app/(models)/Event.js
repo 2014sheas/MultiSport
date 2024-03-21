@@ -31,11 +31,11 @@ const EventSchema = new Schema(
       type: Array,
       required: false,
     },
-    fullPoints: {
-      type: Boolean,
+    seeds: {
+      type: Array,
       required: false,
     },
-    seeds: {
+    pointsArray: {
       type: Array,
       required: false,
     },
