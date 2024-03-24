@@ -2,7 +2,7 @@ import BtnResetPlayers from "../(components)/players/BtnResetPlayers";
 import BtnResetTeams from "../(components)/teams/BtnResetTeams";
 import EditDropdown from "../(components)/EditDropdown";
 import BtnUpdatePoints from "../(components)/events/tournament/BtnUpdatePoints";
-import { withPageAuthRequired } from "@auth0/nextjs-auth0";
+import { withPageAuthRequired, getSession } from "@auth0/nextjs-auth0";
 
 const getEvents = async () => {
   try {
@@ -42,14 +42,18 @@ const AdminPage = async () => {
   const teams = await getTeams();
   const players = await getPlayers();
 
+  const session = await getSession();
+  const user = session?.user;
+  const userRoles = user?.["https://multisport.games/roles"];
+
   return (
     <div>
       <EditDropdown editType={"event"} list={events} />
       <EditDropdown editType={"team"} list={teams} />
       <EditDropdown editType={"player"} list={players} />
-      <BtnResetTeams />
+      {userRoles?.includes("commish") && <BtnResetTeams />}
       <br />
-      <BtnResetPlayers />
+      {userRoles?.includes("commish") && <BtnResetPlayers />}
       <br />
       <br />
       <BtnUpdatePoints />

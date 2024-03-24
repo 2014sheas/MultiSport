@@ -1,6 +1,6 @@
 import GameEdit from "@/app/(components)/games/GameEdit";
-import GameView from "@/app/(components)/games/GameView";
 import React from "react";
+import { withPageAuthRequired, getSession } from "@auth0/nextjs-auth0";
 
 const getGames = async () => {
   try {
@@ -25,15 +25,37 @@ const getTeams = async () => {
 };
 
 const GamePage = async ({ params }) => {
+  const allowedRoles = ["admin", "commish", "scorekeeper"];
+  const session = await getSession();
+  const user = session?.user;
+  const userRoles = user?.["https://multisport.games/roles"];
+  const canEdit = userRoles.some((role) => allowedRoles.includes(role));
+
   let games = await getGames();
   let teams = await getTeams();
   let game = games.find((game) => game.gameId == params.id);
+
+  const editSwitch = () => {
+    if (canEdit) {
+      return <GameEdit allGames={games} teams={teams} game={game} />;
+    } else {
+      return (
+        <div>
+          <h2>Not Authorized</h2>;
+          <p>You are not authorized to edit this game.</p>
+          <p>Only Admins, Commissioners, and Scorekeepers can edit games.</p>
+        </div>
+      );
+    }
+  };
   return (
     <div className="flex flex-col items-center">
       <h1>Game {params.id}</h1>
-      <GameView teams={teams} game={game} />
+      {editSwitch()}
     </div>
   );
 };
 
-export default GamePage;
+export default withPageAuthRequired(GamePage, {
+  returnTo: "/",
+});

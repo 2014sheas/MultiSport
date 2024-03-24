@@ -1,9 +1,14 @@
 "use client";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
+import { useUser } from "@auth0/nextjs-auth0/client";
 
 const GameEdit = ({ allGames, teams, game }) => {
   const router = useRouter();
+  const { user } = useUser();
+  const userRoles = user?.["https://multisport.games/roles"];
+  const isAdmin =
+    userRoles?.includes("admin") || userRoles?.includes("commish");
 
   const teamIds = teams.map((team) => team.teamId);
   const homeTeam = teams.find((team) => team.teamId === game.homeTeam);
@@ -266,8 +271,18 @@ const GameEdit = ({ allGames, teams, game }) => {
     }
   };
 
+  if (!isAdmin) {
+    return (
+      <div>
+        <h2>Not Authorized</h2>
+        <p>You are not authorized to edit this game.</p>
+        <p>Only Admins, Commissioners, and Scorekeepers can edit games.</p>
+      </div>
+    );
+  }
+
   return (
-    <div className="flex flex-col items-center w-fit border-2 rounded-lg bg-slate-900">
+    <div className="flex flex-col items-center border-2 rounded-lg bg-slate-900 w-3/5">
       <h2> {game.status}</h2>
       <form>
         <div className="flex flex-row ">
