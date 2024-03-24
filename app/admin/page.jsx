@@ -2,6 +2,7 @@ import BtnResetPlayers from "../(components)/players/BtnResetPlayers";
 import BtnResetTeams from "../(components)/teams/BtnResetTeams";
 import EditDropdown from "../(components)/EditDropdown";
 import BtnUpdatePoints from "../(components)/events/tournament/BtnUpdatePoints";
+import { withPageAuthRequired } from "@auth0/nextjs-auth0";
 
 const getEvents = async () => {
   try {
@@ -56,4 +57,6 @@ const AdminPage = async () => {
   );
 };
 
-export default AdminPage;
+export default withPageAuthRequired(AdminPage, {
+  returnTo: "/",
+});
