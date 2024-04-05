@@ -18,7 +18,7 @@ const Dashboard = ({ events, teams }) => {
                 <h2>{uniqueStatus}</h2>
                 <div className="lg:grid grid-cols-2 xl:grid-cols-4"></div>
                 {events
-                  .filter((event) => event.status === uniqueStatus)
+                  ?.filter((event) => event.status === uniqueStatus)
                   .map((filteredEvent, _index) => (
                     <EventCard
                       key={_index}
