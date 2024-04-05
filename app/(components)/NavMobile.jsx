@@ -19,23 +19,23 @@ const NavMobile = () => {
           <div>
             <span className="pr-5">{user.name}</span>
           </div>
-          <Link
+          <a
             href="/api/auth/logout"
             className="boarder-l-2 rounded-md bg-slate-700 p-1 text-sm"
           >
             Logout
-          </Link>
+          </a>
         </div>
       );
     } else {
       return (
         <div className="text-white">
-          <Link
+          <a
             href="/api/auth/login"
             className="boarder-l-2 rounded-md bg-slate-700 p-1 text-sm"
           >
             Login
-          </Link>
+          </a>
         </div>
       );
     }
