@@ -8,6 +8,9 @@ const Dashboard = ({ events, teams }) => {
 
   const uniqueStatuses = ["Upcoming", "In Progress", "Completed"];
 
+  console.log("events");
+  console.log(events);
+
   return (
     <div className="p-5">
       <div className="lg:grid grid-cols-2 xl:grid-cols-4">
