@@ -24,6 +24,7 @@ const Dashboard = ({ events, teams }) => {
                       key={_index}
                       event={filteredEvent}
                       teams={teams}
+                      suppressHydrationWarning={true}
                     />
                   ))}
               </div>
