@@ -19,7 +19,7 @@ export async function GET() {
     const teams = await Team.find({});
     return NextResponse.json(teams, { status: 200 });
   } catch (error) {
-    const message = "Error Fetching Teams";
+    const message = error.message[0].messages[0].message;
     return NextResponse.json({ message: message, error }, { status: 500 });
   }
 }
