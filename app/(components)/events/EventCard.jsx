@@ -24,14 +24,18 @@ function EventCard({ event, teams }) {
         return (
           <div className="flex flex-col">
             <p className="text-s mt-2">{eventLocation}</p>
-            <p className="text-s mt-2">{formatTimeStamp(event.date)}</p>
+            <p className="text-s mt-2" suppressHydrationWarning={true}>
+              {formatTimeStamp(event.date)}
+            </p>
           </div>
         );
       case "In Progress":
         return (
           <div className="flex flex-col">
             <p className="text-s my-1">{eventLocation}</p>
-            <p className="text-s my-1">{formatTimeStamp(event.date)}</p>
+            <p className="text-s my-1" suppressHydrationWarning={true}>
+              {formatTimeStamp(event.date)}
+            </p>
           </div>
         );
       case "Completed":
@@ -55,7 +59,9 @@ function EventCard({ event, teams }) {
         return (
           <div className="flex flex-col">
             <p className="text-s my-1">{eventLocation}</p>
-            <p className="text-s my-1">{formatTimeStamp(event.date)}</p>
+            <p className="text-s my-1" suppressHydrationWarning={true}>
+              {formatTimeStamp(event.date)}
+            </p>
           </div>
         );
     }
