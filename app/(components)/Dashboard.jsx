@@ -8,14 +8,6 @@ const Dashboard = ({ events, teams }) => {
 
   const uniqueStatuses = ["Upcoming", "In Progress", "Completed"];
 
-  console.log("events");
-  console.log(events);
-  console.log(typeof events);
-  console.log("teams");
-  console.log(teams);
-  console.log(typeof teams);
-  console.log(process.env.BASE_URL);
-
   return (
     <div className="p-5">
       <div className="lg:grid grid-cols-2 xl:grid-cols-4">
@@ -25,7 +17,7 @@ const Dashboard = ({ events, teams }) => {
               <div key={statusIndex} className="mb-4">
                 <h2>{uniqueStatus}</h2>
                 <div className="lg:grid grid-cols-2 xl:grid-cols-4"></div>
-                {/* {events
+                {events
                   .filter((event) => event.status === uniqueStatus)
                   .map((filteredEvent, _index) => (
                     <EventCard
@@ -33,7 +25,7 @@ const Dashboard = ({ events, teams }) => {
                       event={filteredEvent}
                       teams={teams}
                     />
-                  ))} */}
+                  ))}
               </div>
             ))}
         </div>

@@ -20,8 +20,6 @@ export async function GET() {
     return NextResponse.json(teams, { status: 200 });
   } catch (error) {
     const message = "Error Fetching Teams";
-    console.log("Error Fetching Teams", error);
-    console.log(error);
     return NextResponse.json({ message: message, error }, { status: 500 });
   }
 }

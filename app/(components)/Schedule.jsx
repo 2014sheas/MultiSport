@@ -27,8 +27,6 @@ const Schedule = ({ events }) => {
     6: "Saturday",
   };
 
-  console.log(uniqueDates);
-
   return (
     <div className="flex flex-col items-center w-full">
       <h1>Schedule</h1>

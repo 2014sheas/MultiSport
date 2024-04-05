@@ -48,7 +48,6 @@ const TournamentEvent = ({ event, teams, players, games }) => {
     }
   };
 
-  console.log(user);
   if (games.length === 0) {
     return (
       <div>
