@@ -19,7 +19,9 @@ export async function GET() {
     const teams = await Team.find({});
     return NextResponse.json(teams, { status: 200 });
   } catch (error) {
-    const message = error.message[0].messages[0].message;
+    const message = "Error Fetching Teams";
+    console.log("Error Fetching Teams", error);
+    console.log(error);
     return NextResponse.json({ message: message, error }, { status: 500 });
   }
 }

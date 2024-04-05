@@ -20,7 +20,9 @@ export async function GET() {
     const events = await Event.find({});
     return NextResponse.json(events, { status: 200 });
   } catch (error) {
-    const message = error.message[0].messages[0].message;
+    const message = "Error Fetching Events";
+    console.log("Error Fetching Events", error);
+    console.log(error);
     return NextResponse.json({ message: message, error }, { status: 500 });
   }
 }
