@@ -1,10 +1,5 @@
 "use client";
-import {
-  faHome,
-  faTicket,
-  faListOl,
-  faCalendar,
-} from "@fortawesome/free-solid-svg-icons";
+import { faHome, faTicket, faListOl } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
 import { useUser } from "@auth0/nextjs-auth0/client";
@@ -46,23 +41,25 @@ const NavMobile = () => {
     }
   };
   return (
-    <nav className="flex justify-between bg-nav p-4">
-      <div className="flex items-center space-x-4">
-        <Link href="/">
-          <FontAwesomeIcon icon={faHome} className="icon" />
-        </Link>
-        <Link href="/standings/">
-          <FontAwesomeIcon icon={faListOl} className="icon" />
-        </Link>
-        <Link href="/admin/">
-          {isAdmin && <FontAwesomeIcon icon={faTicket} className="icon" />}
-        </Link>
-        <Link href="/schedule/">
-          <FontAwesomeIcon icon={faCalendar} className="icon" />
-        </Link>
-      </div>
-      <div>{userSwitch()}</div>
-    </nav>
+    <div className="postion-absolute bottom-0 overflow-hidden">
+      <nav className="flex justify-between bg-nav p-4">
+        <div className="flex items-center space-x-4">
+          <Link href="/">
+            <FontAwesomeIcon icon={faHome} className="icon" />
+          </Link>
+          <Link href="/standings/">
+            <FontAwesomeIcon icon={faListOl} className="icon" />
+          </Link>
+          <Link href="/admin/">
+            {isAdmin && <FontAwesomeIcon icon={faTicket} className="icon" />}
+          </Link>
+          <Link href="/schedule/">
+            <FontAwesomeIcon icon={faCalendar} className="icon" />
+          </Link>
+        </div>
+        <div>{userSwitch()}</div>
+      </nav>
+    </div>
   );
 };
 

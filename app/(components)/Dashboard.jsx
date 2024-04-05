@@ -3,7 +3,7 @@
 import { useUser } from "@auth0/nextjs-auth0/client";
 import EventCard from "./events/EventCard";
 
-const Dashboard = ({ events }) => {
+const Dashboard = ({ events, teams }) => {
   const { user, error, isLoading } = useUser();
 
   const uniqueStatuses = ["Upcoming", "In Progress", "Completed"];
@@ -20,7 +20,11 @@ const Dashboard = ({ events }) => {
                 {events
                   .filter((event) => event.status === uniqueStatus)
                   .map((filteredEvent, _index) => (
-                    <EventCard key={_index} event={filteredEvent} />
+                    <EventCard
+                      key={_index}
+                      event={filteredEvent}
+                      teams={teams}
+                    />
                   ))}
               </div>
             ))}

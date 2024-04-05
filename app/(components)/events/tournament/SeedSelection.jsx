@@ -5,6 +5,8 @@ import React, { useState } from "react";
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 
+const BASE_URL = process.env.BASE_URL;
+
 const randomizeSeeds = (teams) => {
   let randomizedTeams = teams.map((team) => team.teamId);
   for (let i = randomizedTeams.length - 1; i > 0; i--) {
@@ -89,7 +91,7 @@ const SeedSelection = ({ event, teams }) => {
       seeds: Object.values(seedsArray),
     };
 
-    const res = await fetch(`http://localhost:3000/api/Events/${event._id}`, {
+    const res = await fetch(`${BASE_URL}/Events/${event._id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",

@@ -3,10 +3,13 @@ import BtnResetTeams from "../(components)/teams/BtnResetTeams";
 import EditDropdown from "../(components)/EditDropdown";
 import BtnUpdatePoints from "../(components)/events/tournament/BtnUpdatePoints";
 import { withPageAuthRequired, getSession } from "@auth0/nextjs-auth0";
+import Link from "next/link";
+
+const BASE_URL = process.env.BASE_URL;
 
 const getEvents = async () => {
   try {
-    const res = await fetch("http://localhost:3000/api/Events", {
+    const res = await fetch(`${BASE_URL}/api/Events`, {
       cache: "no-store",
     });
     return res.json();
@@ -17,7 +20,7 @@ const getEvents = async () => {
 
 const getTeams = async () => {
   try {
-    const res = await fetch("http://localhost:3000/api/Teams", {
+    const res = await fetch(`${BASE_URL}/api/Teams`, {
       cache: "no-store",
     });
     return res.json();
@@ -28,7 +31,7 @@ const getTeams = async () => {
 
 const getPlayers = async () => {
   try {
-    const res = await fetch("http://localhost:3000/api/Players", {
+    const res = await fetch(`${BASE_URL}/api/Players`, {
       cache: "no-store",
     });
     return res.json();
@@ -57,6 +60,10 @@ const AdminPage = async () => {
       <br />
       <br />
       <BtnUpdatePoints />
+      <br />
+      <Link href="/admin/eventEdit/new">
+        <button className="btn w-fit text-white">Add New Event</button>
+      </Link>
     </div>
   );
 };

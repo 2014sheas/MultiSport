@@ -1,9 +1,11 @@
 import React from "react";
 import EventForm from "../../../(components)/events/EventForm";
 
+const BASE_URL = process.env.BASE_URL;
+
 const getEventById = async (id) => {
   try {
-    const res = await fetch(`http://localhost:3000/api/Events/${id}`, {
+    const res = await fetch(`${BASE_URL}/api/Events/${id}`, {
       cache: "no-store",
     });
     return res.json();
@@ -14,7 +16,7 @@ const getEventById = async (id) => {
 
 const getTeams = async () => {
   try {
-    const res = await fetch(`http://localhost:3000/api/Teams`, {
+    const res = await fetch(`${BASE_URL}/api/Teams`, {
       cache: "no-store",
     });
     return res.json();

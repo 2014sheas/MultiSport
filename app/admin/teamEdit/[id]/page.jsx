@@ -1,9 +1,11 @@
 import React from "react";
 import TeamForm from "@/app/(components)/teams/TeamForm";
 
+const BASE_URL = process.env.BASE_URL;
+
 const getTeamById = async (id) => {
   try {
-    const res = await fetch(`http://localhost:3000/api/Teams/${id}`, {
+    const res = await fetch(`${BASE_URL}/api/Teams/${id}`, {
       cache: "no-store",
     });
     return res.json();

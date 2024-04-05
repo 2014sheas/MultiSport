@@ -56,7 +56,7 @@ const Standings = ({ teams }) => {
   ];
 
   return (
-    <div>
+    <div className="flex flex-col items-center">
       <h1>Standings</h1>
       <Table className="w-1/2 size=small bg-slate-600 dark:bg-gray-800">
         <TableHead>

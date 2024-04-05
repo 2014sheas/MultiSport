@@ -1,9 +1,11 @@
 import React from "react";
 import PlayerForm from "../../../(components)/players/PlayerForm";
 
+const BASE_URL = process.env.BASE_URL;
+
 const getPlayerById = async (id) => {
   try {
-    const res = await fetch(`http://localhost:3000/api/Players/${id}`, {
+    const res = await fetch(`${BASE_URL}/api/Players/${id}`, {
       cache: "no-store",
     });
     return res.json();

@@ -1,9 +1,11 @@
 import TournamentEvent from "@/app/(components)/events/tournament/TournamentEvent";
 import ScoredEvent from "@/app/(components)/events/scored/ScoredEvent";
 
+const BASE_URL = process.env.BASE_URL;
+
 const getEventById = async (id) => {
   try {
-    const res = await fetch(`http://localhost:3000/api/Events/${id}`, {
+    const res = await fetch(`${BASE_URL}/api/Events/${id}`, {
       cache: "no-store",
     });
     return res.json();
@@ -14,7 +16,7 @@ const getEventById = async (id) => {
 
 const getTeams = async () => {
   try {
-    const res = await fetch(`http://localhost:3000/api/Teams`, {
+    const res = await fetch(`${BASE_URL}/api/Teams`, {
       cache: "no-store",
     });
     return res.json();
@@ -25,7 +27,7 @@ const getTeams = async () => {
 
 const getPlayers = async () => {
   try {
-    const res = await fetch(`http://localhost:3000/api/Players`, {
+    const res = await fetch(`${BASE_URL}/api/Players`, {
       cache: "no-store",
     });
     return res.json();
@@ -36,7 +38,7 @@ const getPlayers = async () => {
 
 const getGames = async () => {
   try {
-    const res = await fetch(`http://localhost:3000/api/Games`, {
+    const res = await fetch(`${BASE_URL}/api/Games`, {
       cache: "no-store",
     });
     return res.json();

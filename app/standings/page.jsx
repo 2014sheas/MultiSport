@@ -1,7 +1,10 @@
 import Standings from "../(components)/Standings";
+
+const BASE_URL = process.env.BASE_URL;
+
 const getTeams = async () => {
   try {
-    const res = await fetch(`http://localhost:3000/api/Teams`, {
+    const res = await fetch(`${BASE_URL}/api/Teams`, {
       cache: "no-store",
     });
     return res.json();
@@ -14,7 +17,7 @@ const StandingsPage = async () => {
   const teams = await getTeams();
   teams.sort((a, b) => b.totalPoints - a.totalPoints);
   return (
-    <div>
+    <div className="flex flex-col items-center">
       <Standings teams={teams} />
     </div>
   );

@@ -60,7 +60,7 @@ const EventForm = ({ event, teams }) => {
     eventId: "",
     eventType: "Tournament",
     date: "",
-    pointsArray: [],
+    pointsArray: 0,
     status: "Upcoming",
     results: [],
   };

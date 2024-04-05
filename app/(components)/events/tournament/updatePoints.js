@@ -1,6 +1,8 @@
+const BASE_URL = process.env.BASE_URL;
+
 const getTeams = async () => {
   try {
-    const res = await fetch(`http://localhost:3000/api/Teams`, {
+    const res = await fetch(`${BASE_URL}/api/Teams`, {
       cache: "no-store",
     });
     return res.json();
@@ -11,7 +13,7 @@ const getTeams = async () => {
 
 const getEvents = async () => {
   try {
-    const res = await fetch(`http://localhost:3000/api/Events`, {
+    const res = await fetch(`${BASE_URL}/api/Events`, {
       cache: "no-store",
     });
     return res.json();

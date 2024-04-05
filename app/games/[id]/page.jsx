@@ -2,9 +2,11 @@ import GameEdit from "@/app/(components)/games/GameEdit";
 import GameView from "@/app/(components)/games/GameView";
 import React from "react";
 
+const BASE_URL = process.env.BASE_URL;
+
 const getGames = async () => {
   try {
-    const res = await fetch(`http://localhost:3000/api/Games`, {
+    const res = await fetch(`${BASE_URL}/api/Games`, {
       cache: "no-store",
     });
     return res.json();
@@ -15,7 +17,7 @@ const getGames = async () => {
 
 const getTeams = async () => {
   try {
-    const res = await fetch(`http://localhost:3000/api/Teams`, {
+    const res = await fetch(`${BASE_URL}/api/Teams`, {
       cache: "no-store",
     });
     return res.json();
