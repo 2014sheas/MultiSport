@@ -157,6 +157,7 @@ const EventForm = ({ event, teams }) => {
           onChange={handleChange}
           required={true}
           value={formData.date}
+          suppressHydrationWarning={true}
         />
         <label>Points Array</label>
         <select

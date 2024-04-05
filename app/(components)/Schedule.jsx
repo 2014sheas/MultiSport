@@ -48,7 +48,10 @@ const Schedule = ({ events }) => {
                       <TableCell className="text-white w-fit md:text-lg">
                         {filteredEvent.eventName}
                       </TableCell>
-                      <TableCell className="text-white w-fit md:text-lg">
+                      <TableCell
+                        className="text-white w-fit md:text-lg"
+                        suppressHydrationWarning={true}
+                      >
                         {filteredEvent.date.toLocaleTimeString("en-US", {
                           hour: "2-digit",
                           minute: "2-digit",
