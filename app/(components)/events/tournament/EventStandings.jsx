@@ -9,9 +9,10 @@ import {
 const EventStandings = ({ games, teams, event }) => {
   const eventId = event.eventId;
 
-  //TODO: Make pointArray a field in the event object
-  const pointArray = [10, 7, 5, 3, 2, 2, 1, 1];
+  const pointArray = event.pointsArray;
   const placeArray = ["1st", "2nd", "3rd", "4th", "5th", "-", "7th", "-"];
+
+  console.log(event);
 
   const standings = {
     first: games.find((game) => game.gameId === `${eventId}15`).winner,
@@ -57,10 +58,10 @@ const EventStandings = ({ games, teams, event }) => {
 
   let table = (
     <Table className="w-96">
-      <TableHead>
+      <TableHead className="bg-slate-600 dark:bg-gray-800">
         <TableRow>
           {columns.map((column) => (
-            <TableCell key={column.field} align="center">
+            <TableCell key={column.field} align="center" className="text-white">
               {column.headerName}
             </TableCell>
           ))}
@@ -70,7 +71,11 @@ const EventStandings = ({ games, teams, event }) => {
         {rows.map((row) => (
           <TableRow key={row.index}>
             {columns.map((column) => (
-              <TableCell key={column.field} align="center">
+              <TableCell
+                key={column.field}
+                align="center"
+                className="text-white"
+              >
                 {row[column.field]}
               </TableCell>
             ))}
@@ -80,12 +85,7 @@ const EventStandings = ({ games, teams, event }) => {
     </Table>
   );
 
-  return (
-    <div className="flex flex-col items-center w-96">
-      <h2>Standings</h2>
-      {table}
-    </div>
-  );
+  return <div className="flex flex-col items-center w-96">{table}</div>;
 };
 
 export default EventStandings;

@@ -4,7 +4,6 @@ import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 
 const PlayerForm = ({ player }) => {
-  const EDITMODE = player._id !== "new";
   const router = useRouter();
 
   const handleChange = (e) => {
@@ -14,24 +13,13 @@ const PlayerForm = ({ player }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (EDITMODE) {
-      const res = await fetch(`/api/Players/${player._id}`, {
-        method: "PUT",
-        body: JSON.stringify({ formData }),
-        "Content-Type": "application/json",
-      });
-      if (!res.ok) {
-        throw new Error("Failed to update player" + res.status);
-      }
-    } else {
-      const res = await fetch("/api/Players", {
-        method: "POST",
-        body: JSON.stringify({ formData }),
-        "Content-Type": "application/json",
-      });
-      if (!res.ok) {
-        throw new Error("Failed to create player" + res.status);
-      }
+    const res = await fetch(`/api/Players/${player._id}`, {
+      method: "PUT",
+      body: JSON.stringify({ formData }),
+      "Content-Type": "application/json",
+    });
+    if (!res.ok) {
+      throw new Error("Failed to update player" + res.status);
     }
 
     router.refresh();
@@ -47,14 +35,12 @@ const PlayerForm = ({ player }) => {
     weaknesses: "",
   };
 
-  if (EDITMODE) {
-    startingPlayerData.name = player.name;
-    startingPlayerData.playerId = player.playerId;
-    startingPlayerData.nickname = player.nickname;
-    startingPlayerData.bio = player.bio;
-    startingPlayerData.strengths = player.strengths;
-    startingPlayerData.weaknesses = player.weaknesses;
-  }
+  startingPlayerData.name = player.name;
+  startingPlayerData.playerId = player.playerId;
+  startingPlayerData.nickname = player.nickname;
+  startingPlayerData.bio = player.bio;
+  startingPlayerData.strengths = player.strengths;
+  startingPlayerData.weaknesses = player.weaknesses;
 
   const [formData, setFormData] = useState(startingPlayerData);
 
@@ -65,7 +51,7 @@ const PlayerForm = ({ player }) => {
         method="post"
         onSubmit={handleSubmit}
       >
-        <h1>{EDITMODE ? "Edit" : "Create"} Player</h1>
+        <h1>Edit Player</h1>
         <label>Name:</label>
         <input
           type="text"
@@ -109,7 +95,7 @@ const PlayerForm = ({ player }) => {
           value={formData.weaknesses}
           onChange={handleChange}
         />
-        <button type="submit">{EDITMODE ? "Update" : "Create"}</button>
+        <button type="submit">Update</button>
       </form>
     </div>
   );

@@ -1,5 +1,6 @@
 import React from "react";
 import PlayerForm from "../../../(components)/players/PlayerForm";
+import CreateUser from "@/app/(components)/userManagement/CreateUser";
 
 const BASE_URL = process.env.BASE_URL;
 
@@ -23,13 +24,13 @@ const PlayerEditPage = async ({ params }) => {
   if (EDITMODE) {
     playerData = await getPlayerById(params.id);
     updatePlayerData = playerData.foundPlayer;
+    return <PlayerForm player={updatePlayerData} />;
   } else {
     updatePlayerData = {
       _id: "new",
     };
+    return <CreateUser />;
   }
-
-  return <PlayerForm player={updatePlayerData} />;
 };
 
 export default PlayerEditPage;

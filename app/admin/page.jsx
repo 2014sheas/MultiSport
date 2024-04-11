@@ -1,6 +1,7 @@
 import BtnResetPlayers from "../(components)/players/BtnResetPlayers";
 import BtnResetTeams from "../(components)/teams/BtnResetTeams";
 import EditDropdown from "../(components)/EditDropdown";
+import CreateUser from "../(components)/userManagement/CreateUser";
 import BtnUpdatePoints from "../(components)/events/tournament/BtnUpdatePoints";
 import { withPageAuthRequired, getSession } from "@auth0/nextjs-auth0";
 import Link from "next/link";
@@ -64,6 +65,18 @@ const AdminPage = async () => {
       <Link href="/admin/eventEdit/new">
         <button className="btn w-fit text-white">Add New Event</button>
       </Link>
+      <br />
+      <br />
+      <Link href="/admin/teamEdit/new">
+        <button className="btn w-fit text-white">Add New Team</button>
+      </Link>
+      <br />
+      <br />
+      <Link href="/admin/playerEdit/new">
+        <button className="btn w-fit text-white">Add New Player</button>
+      </Link>
+      <br />
+      <br />
     </div>
   );
 };

@@ -63,7 +63,7 @@ const TournamentEvent = ({ event, teams, players, games }) => {
       <div className="flex flex-col items-center">
         <h1>{event.name}</h1>
         {isAdmin && adminBlock()}
-        <div className="flex flex-row justify-center overflow-x-auto">
+        <div className="flex flex-row justify-center">
           {uniqueRounds.map((round, _index) => (
             <RoundContainer
               key={round}

@@ -28,7 +28,7 @@ const GameCard = ({ game, allGames, event, teams }) => {
     return className + bg;
   };
   return (
-    <div className="flex flex-col hover:bg-card-hover rounded-md shadow-lg m-5 w-44">
+    <div className="flex flex-col hover:bg-card-hover rounded-md shadow-lg m-5 w-40">
       <Link href={`/games/${game.gameId}`} style={{ display: "contents" }}>
         <div className={headerSwitch(game.status)}>
           <p className="">{game.gameId}</p>
