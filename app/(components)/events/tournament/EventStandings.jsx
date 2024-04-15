@@ -12,8 +12,6 @@ const EventStandings = ({ games, teams, event }) => {
   const pointArray = event.pointsArray;
   const placeArray = ["1st", "2nd", "3rd", "4th", "5th", "-", "7th", "-"];
 
-  console.log(event);
-
   const standings = {
     first: games.find((game) => game.gameId === `${eventId}15`).winner,
     second: games.find((game) => game.gameId === `${eventId}15`).loser,

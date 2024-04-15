@@ -35,7 +35,6 @@ const CreateUser = () => {
       connection: "Username-Password-Authentication",
       email_verified: true,
     };
-    console.log("userData", userData);
 
     // createNewUser(userData);
     const userRes = await fetch(`/api/Users`, {

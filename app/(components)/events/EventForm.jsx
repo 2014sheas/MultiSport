@@ -1,8 +1,19 @@
 "use client";
 
-import { set } from "mongoose";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
+
+import {
+  APIProvider,
+  Map,
+  AdvancedMarker,
+  Pin,
+  InfoWindow,
+  ControlPosition,
+} from "@vis.gl/react-google-maps";
+
+import MapHandler from "../location/map-handler";
+import { CustomMapControl } from "../location/map-control";
 
 const EventForm = ({ event, teams }) => {
   const EDITMODE = event._id !== "new";
@@ -10,6 +21,15 @@ const EventForm = ({ event, teams }) => {
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleLocationChange = (place) => {
+    setFormData({ ...formData, location: place });
+  };
+
+  const position = {
+    lat: 41.9242,
+    lng: -70.5494,
   };
 
   const handleSubmit = async (e) => {
@@ -63,6 +83,7 @@ const EventForm = ({ event, teams }) => {
     pointsArray: 0,
     status: "Upcoming",
     results: [],
+    location: null,
   };
 
   const pointArrOptions = [
@@ -81,6 +102,7 @@ const EventForm = ({ event, teams }) => {
     startingEventData.pointsArray = pointArrOptions.indexOf(event.pointsArray);
     startingEventData.status = event.status;
     startingEventData.results = event.results;
+    startingEventData.location = event.location;
   }
 
   const defaultResults = [
@@ -185,8 +207,33 @@ const EventForm = ({ event, teams }) => {
           <option value="In Progress">In Progress</option>
           <option value="Completed">Completed</option>
         </select>
+        <div>
+          <APIProvider apiKey="AIzaSyDAVueMyJScSDuS4TQtX8EhrYuwaX8n64w">
+            <div className="w-full h-96">
+              <Map
+                defaultZoom={9}
+                defaultCenter={position}
+                mapId="a9dbda75f7cf88c5"
+                disableDefaultUI={true}
+              >
+                <AdvancedMarker
+                  position={position}
+                  onClick={() => setOpen(true)}
+                >
+                  <Pin />{" "}
+                </AdvancedMarker>
+              </Map>
+              <MapHandler place={formData.location} />
+              <CustomMapControl
+                controlPosition={ControlPosition.TOP}
+                onPlaceSelect={handleLocationChange}
+              />
+            </div>
+          </APIProvider>
+        </div>
+
+        {/* DEBUG */}
         <label>Results</label>
-        {/* inputs for 1st through 8th place */}
         <div>
           {resultNames.map((name, index) => (
             <div key={index}>
@@ -203,8 +250,6 @@ const EventForm = ({ event, teams }) => {
             </div>
           ))}
         </div>
-
-        {/* DEBUG */}
 
         <button type="submit">{EDITMODE ? "Update" : "Create"}</button>
       </form>

@@ -39,6 +39,10 @@ const EventSchema = new Schema(
       type: Array,
       required: false,
     },
+    location: {
+      type: Object,
+      required: false,
+    },
   },
   {
     timestamps: true,

@@ -18,7 +18,7 @@ const formatTimeStamp = (timestamp) => {
 
 function EventCard({ event, teams }) {
   const bodyDataSwitch = () => {
-    const eventLocation = event.location ? event.location : "Location";
+    const eventLocation = event.location ? event.location.name : "Location";
     switch (event.status) {
       case "Upcoming":
         return (
@@ -68,7 +68,7 @@ function EventCard({ event, teams }) {
   };
 
   return (
-    <div className="flex flex-col bg-card hover:bg-card-hover rounded-md shadow-lg p-3 m- w-64 h-32">
+    <div className="flex flex-col bg-card hover:bg-card-hover rounded-md shadow-lg p-3 m- w-64 h-32 mt-5">
       <Link href={`/events/${event.eventId}`} style={{ display: "contents" }}>
         <h4>{event.name}</h4>
         <hr className="h-px border-0 bg-page mb-2" />

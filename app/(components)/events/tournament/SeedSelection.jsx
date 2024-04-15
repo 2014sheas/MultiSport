@@ -109,7 +109,7 @@ const SeedSelection = ({ event, teams }) => {
   };
 
   return (
-    <div className="flex justify-center">
+    <div className="flex justify-center w-3/5">
       <Modal
         open={errorModalOpen}
         onClose={() => setErrorModalOpen(false)}
