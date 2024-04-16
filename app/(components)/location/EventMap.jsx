@@ -18,7 +18,7 @@ const EventMap = ({ location }) => {
   const [open, setOpen] = useState(false);
 
   return (
-    <APIProvider apiKey="AIzaSyDAVueMyJScSDuS4TQtX8EhrYuwaX8n64w">
+    <APIProvider apiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}>
       <div className="w-1/2 h-96">
         <Map
           defaultZoom={16}

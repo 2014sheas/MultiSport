@@ -208,7 +208,7 @@ const EventForm = ({ event, teams }) => {
           <option value="Completed">Completed</option>
         </select>
         <div>
-          <APIProvider apiKey="AIzaSyDAVueMyJScSDuS4TQtX8EhrYuwaX8n64w">
+          <APIProvider apiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}>
             <div className="w-full h-96">
               <Map
                 defaultZoom={9}
