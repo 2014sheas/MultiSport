@@ -1,5 +1,4 @@
 import React from "react";
-import PlayerCard from "../(components)/players/playerCard";
 
 const BASE_URL = process.env.BASE_URL;
 
@@ -30,7 +29,9 @@ const PlayerPage = async () => {
   return (
     <div>
       {players.map((player) => (
-        <PlayerCard key={player.playerId} player={player} />
+        <div key={player.id}>
+          <h1>{player.name}</h1>
+        </div>
       ))}
     </div>
   );
