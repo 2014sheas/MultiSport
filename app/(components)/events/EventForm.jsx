@@ -87,9 +87,10 @@ const EventForm = ({ event, teams }) => {
   };
 
   const pointArrOptions = [
-    [10, 8, 6, 4, 2, 2, 1, 1],
-    [5, 4, 3, 2, 1, 1, 0, 0],
-    [10, 10, 8, 8, 6, 6, 4, 4],
+    [10, 7, 4, 2],
+    [5, 3, 2, 1],
+    [15, 10, 6, 3],
+    [10, 10, 4, 4],
   ];
 
   if (EDITMODE) {
@@ -110,10 +111,6 @@ const EventForm = ({ event, teams }) => {
     EDITMODE ? event.results[1] : teams[1].teamId,
     EDITMODE ? event.results[2] : teams[2].teamId,
     EDITMODE ? event.results[3] : teams[3].teamId,
-    EDITMODE ? event.results[4] : teams[4].teamId,
-    EDITMODE ? event.results[5] : teams[5].teamId,
-    EDITMODE ? event.results[6] : teams[6].teamId,
-    EDITMODE ? event.results[7] : teams[7].teamId,
   ];
 
   const [results, setResults] = useState(defaultResults);
@@ -129,7 +126,7 @@ const EventForm = ({ event, teams }) => {
     </option>
   ));
 
-  const resultNames = ["1st", "2nd", "3rd", "4th", "5th", "6th", "7th", "8th"];
+  const resultNames = ["1st", "2nd", "3rd", "4th"];
 
   const [formData, setFormData] = useState(startingEventData);
 
@@ -189,9 +186,10 @@ const EventForm = ({ event, teams }) => {
           required={true}
           value={formData.pointsArray}
         >
-          <option value={0}>10, 8, 6, 4, 2, 2, 1, 1</option>
-          <option value={1}>5, 4, 3, 2, 1, 1, 0, 0</option>
-          <option value={2}>10, 10, 8, 8, 6, 6, 4, 4</option>
+          <option value={0}>10, 7, 4, 2</option>
+          <option value={1}>5, 3, 2, 1</option>
+          <option value={2}>15, 10, 6, 3</option>
+          <option value={3}>10, 10, 4, 4</option>
         </select>
 
         {/* DEBUG */}

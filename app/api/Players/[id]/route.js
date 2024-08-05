@@ -12,6 +12,8 @@ export async function GET(req, { params }) {
 }
 
 export async function PUT(req, { params }) {
+  console.log("Updating Player");
+  console.log(params);
   try {
     const { id } = params;
     const body = await req.json();

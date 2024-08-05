@@ -5,6 +5,7 @@ import CreateUser from "../(components)/userManagement/CreateUser";
 import BtnUpdatePoints from "../(components)/events/tournament/BtnUpdatePoints";
 import { withPageAuthRequired, getSession } from "@auth0/nextjs-auth0";
 import Link from "next/link";
+import UploadForm from "../(components)/uploads/UploadForm";
 
 const BASE_URL = process.env.BASE_URL;
 
@@ -75,6 +76,9 @@ const AdminPage = async () => {
       <Link href="/admin/playerEdit/new">
         <button className="btn w-fit text-white">Add New Player</button>
       </Link>
+      <br />
+      <br />
+      <UploadForm />
       <br />
       <br />
     </div>

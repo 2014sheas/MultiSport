@@ -9,7 +9,7 @@ function BtnResetTeams() {
     if (!res.ok) {
       throw new Error("Failed to delete teams " + res.status);
     }
-    for (let i = 1; i < 9; i++) {
+    for (let i = 1; i < 5; i++) {
       let teamData = {
         name: "Team " + i,
         teamId: "team" + i,

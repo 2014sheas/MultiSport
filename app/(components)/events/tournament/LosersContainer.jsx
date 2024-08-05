@@ -3,7 +3,7 @@ import GameCard from "../../games/GameCard";
 
 function LosersContainer({ event, teams, players, games }) {
   return (
-    <div className="flex flex-col justify-around h-[250px]">
+    <div className="flex flex-col justify-around h-[125px]">
       {games.map((game) => (
         <GameCard
           key={game.gameId}

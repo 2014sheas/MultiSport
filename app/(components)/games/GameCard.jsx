@@ -27,11 +27,14 @@ const GameCard = ({ game, allGames, event, teams }) => {
     }
     return className + bg;
   };
+
+  const gameNum = game.gameId.replace(`${event.eventId}`, "");
+  const bracketType = game.type === "Winners Bracket" ? "Winners" : "Losers";
   return (
-    <div className="flex flex-col hover:bg-card-hover rounded-md shadow-lg m-5 w-40">
+    <div className="flex flex-col hover:bg-card-hover rounded-md shadow-lg m-0 w-40">
       <Link href={`/games/${game.gameId}`} style={{ display: "contents" }}>
         <div className={headerSwitch(game.status)}>
-          <p className="">{game.gameId}</p>
+          <p className="">{`Game ${gameNum} (${bracketType})`}</p>
         </div>
         <div className="flex flex-col bg-slate-800 m-0 p-1 w-inherit rounded-b-md">
           <div className="flex flex-row justify-between">

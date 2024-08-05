@@ -10,30 +10,39 @@
   },
   "dependencies": {
     "@auth0/nextjs-auth0": "^3.5.0",
+    "@aws-sdk/client-s3": "^3.614.0",
+    "@aws-sdk/s3-presigned-post": "^3.614.0",
+    "@aws-sdk/s3-request-presigner": "^3.616.0",
     "@emotion/react": "^11.11.3",
     "@emotion/styled": "^11.11.0",
     "@fortawesome/free-solid-svg-icons": "^6.5.1",
     "@fortawesome/react-fontawesome": "^0.2.0",
-    "@mui/material": "^5.15.11",
+    "@mui/material": "^5.16.4",
     "@vis.gl/react-google-maps": "^0.8.3",
     "auth0": "^4.3.1",
+    "aws-sdk": "^2.1659.0",
     "aws4": "^1.12.0",
     "axios": "^1.6.8",
+    "cors": "^2.8.5",
+    "croppie": "^2.6.5",
     "dotenv": "^16.4.5",
     "fs": "^0.0.1-security",
     "mongodb": "^6.3.0",
     "mongoose": "^8.1.1",
     "next": "^14.1.4",
     "next-easy-middlewares": "^1.0.9",
+    "nextjs-cors": "^2.2.0",
     "react": "^18.2.0",
     "react-dom": "^18",
+    "react-easy-crop": "^5.0.7",
+    "react-image-crop": "^11.0.6",
     "substring": "^1.0.0"
   },
   "devDependencies": {
-    "autoprefixer": "^10.0.1",
+    "autoprefixer": "^10.4.19",
     "eslint": "^8",
     "eslint-config-next": "14.1.0",
-    "postcss": "^8",
-    "tailwindcss": "^3.3.0"
+    "postcss": "^8.4.38",
+    "tailwindcss": "^3.4.3"
   }
 }

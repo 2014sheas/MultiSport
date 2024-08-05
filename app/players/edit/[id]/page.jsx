@@ -1,6 +1,7 @@
 import React from "react";
-import CreateUser from "@/app/(components)/userManagement/CreateUser";
 import PlayerEdit from "@/app/(components)/players/PlayerEdit";
+import { withPageAuthRequired, getSession } from "@auth0/nextjs-auth0";
+import { redirect } from "next/navigation";
 
 const BASE_URL = process.env.BASE_URL;
 
@@ -33,17 +34,22 @@ const PlayerEditPage = async ({ params }) => {
   let updatePlayerData = {};
 
   const events = await getEvents();
+  playerData = await getPlayerById(params.id);
+  updatePlayerData = playerData.foundPlayer;
 
-  if (EDITMODE) {
-    playerData = await getPlayerById(params.id);
-    updatePlayerData = playerData.foundPlayer;
-    return <PlayerEdit player={updatePlayerData} events={events} />;
-  } else {
-    updatePlayerData = {
-      _id: "new",
-    };
-    return <CreateUser events={events} />;
+  const session = await getSession();
+  const user = session?.user;
+  const userCanEdit = user?.nickname === updatePlayerData.userId;
+
+  if (!updatePlayerData) {
+    return <p>Player not found</p>;
   }
+  if (!userCanEdit) {
+    redirect("/players/" + updatePlayerData.playerId);
+    return <p>Unauthorized</p>;
+  }
+
+  return <PlayerEdit player={updatePlayerData} events={events} />;
 };
 
 export default PlayerEditPage;

@@ -12,14 +12,6 @@ const BtnCompleteEvent = ({ event, games }) => {
     second: games.find((game) => game.gameId === `${eventId}15`).loser,
     third: games.find((game) => game.gameId === `${eventId}13`).loser,
     fourth: games.find((game) => game.gameId === `${eventId}12`).loser,
-    fifth: [
-      games.find((game) => game.gameId === `${eventId}11`).loser,
-      games.find((game) => game.gameId === `${eventId}10`).loser,
-    ],
-    seventh: [
-      games.find((game) => game.gameId === `${eventId}9`).loser,
-      games.find((game) => game.gameId === `${eventId}8`).loser,
-    ],
   };
 
   const standingsArray = [
@@ -27,10 +19,6 @@ const BtnCompleteEvent = ({ event, games }) => {
     standings.second,
     standings.third,
     standings.fourth,
-    standings.fifth[0],
-    standings.fifth[1],
-    standings.seventh[0],
-    standings.seventh[1],
   ];
 
   event.status = "Completed";

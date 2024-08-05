@@ -4,6 +4,7 @@ import {
   faTicket,
   faListOl,
   faCalendar,
+  faUsers,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
@@ -22,7 +23,9 @@ const NavMobile = () => {
       return (
         <div className="flex flex-row text-white">
           <div>
-            <span className="pr-5">{user.name}</span>
+            <span className="pr-5">
+              <a href={`/players/${user.nickname}`}>{user.name}</a>
+            </span>
           </div>
           <a
             href="/api/auth/logout"
@@ -53,6 +56,9 @@ const NavMobile = () => {
         </Link>
         <Link href="/standings/">
           <FontAwesomeIcon icon={faListOl} className="icon" />
+        </Link>
+        <Link href="/players/">
+          <FontAwesomeIcon icon={faUsers} className="icon" />
         </Link>
         <Link href="/admin/">
           {isAdmin && <FontAwesomeIcon icon={faTicket} className="icon" />}

@@ -13,18 +13,10 @@ const EventStandings = ({ games, teams, event }) => {
   const placeArray = ["1st", "2nd", "3rd", "4th", "5th", "-", "7th", "-"];
 
   const standings = {
-    first: games.find((game) => game.gameId === `${eventId}15`).winner,
-    second: games.find((game) => game.gameId === `${eventId}15`).loser,
-    third: games.find((game) => game.gameId === `${eventId}13`).loser,
-    fourth: games.find((game) => game.gameId === `${eventId}12`).loser,
-    fifth: [
-      games.find((game) => game.gameId === `${eventId}11`).loser,
-      games.find((game) => game.gameId === `${eventId}10`).loser,
-    ],
-    seventh: [
-      games.find((game) => game.gameId === `${eventId}9`).loser,
-      games.find((game) => game.gameId === `${eventId}8`).loser,
-    ],
+    first: games.find((game) => game.gameId === `${eventId}7`).winner,
+    second: games.find((game) => game.gameId === `${eventId}7`).loser,
+    third: games.find((game) => game.gameId === `${eventId}5`).loser,
+    fourth: games.find((game) => game.gameId === `${eventId}4`).loser,
   };
 
   const standingsArray = [
@@ -32,10 +24,6 @@ const EventStandings = ({ games, teams, event }) => {
     standings.second,
     standings.third,
     standings.fourth,
-    standings.fifth[0],
-    standings.fifth[1],
-    standings.seventh[0],
-    standings.seventh[1],
   ];
 
   const rows = standingsArray.map((team, index) => {

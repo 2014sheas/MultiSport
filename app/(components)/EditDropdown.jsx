@@ -17,7 +17,9 @@ function EditDropdown({ editType, list }) {
         {list.map((item) => {
           return (
             <option key={item._id} value={item[itemkey]}>
-              {item.name}
+              {editType === "player"
+                ? item.first_name + " " + item.last_name
+                : item.name}
             </option>
           );
         })}

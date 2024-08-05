@@ -16,12 +16,23 @@ const generatePassword = () => {
   return password;
 };
 
-const CreateUser = () => {
+const CreateUser = ({ events }) => {
+  const eventIds = events.map((event) => event.eventId);
+
+  const ratings = eventIds.reduce((ratingObj, eventId) => {
+    ratingObj[eventId] = 0;
+    return ratingObj;
+  }, {});
+
   const startingUserData = {
     email: "",
     given_name: "",
     family_name: "",
     nickname: "",
+    bio: "",
+    croppedArea: [],
+    profile_image: "",
+    ratings: ratings,
   };
 
   const [formData, setFormData] = useState(startingUserData);
@@ -29,38 +40,53 @@ const CreateUser = () => {
   const onSubmit = async (e) => {
     e.preventDefault();
 
-    const userData = {
-      ...formData,
-      password: generatePassword(),
-      connection: "Username-Password-Authentication",
-      email_verified: true,
-    };
-
-    // createNewUser(userData);
-    const userRes = await fetch(`/api/Users`, {
-      method: "POST",
-      body: JSON.stringify({ formData: userData }),
-      "Content-Type": "application/json",
-    });
-    if (!userRes.ok) {
-      throw new Error("Failed to create user" + userRes.status);
-    }
-
-    const playerData = {
-      playerId: formData.email.split("@")[0],
+    let playerData = {
+      playerId: `${formData.given_name}${formData.family_name}`,
       first_name: formData.given_name,
       last_name: formData.family_name,
       nickname: formData.nickname,
       bio: "",
+      ratings: formData.ratings,
+      profile_image: "",
+      email: formData.email,
+      userId: "",
+      team: "",
+      croppedArea: [],
+      strengths: "",
+      weaknesses: "",
+      PastTeams: [],
+      alerts: [],
     };
 
+    if (formData.email) {
+      playerData.userId = formData.email.split("@")[0];
+      playerData.playerId = playerData.userId;
+      const userData = {
+        email: formData.email,
+        given_name: formData.given_name,
+        family_name: formData.family_name,
+        password: generatePassword(),
+        connection: "Username-Password-Authentication",
+        email_verified: true,
+      };
+
+      const userRes = await fetch(`/api/Users`, {
+        method: "POST",
+        body: JSON.stringify({ formData: userData }),
+        "Content-Type": "application/json",
+      });
+      if (!userRes.ok) {
+        throw new Error("Failed to create user" + userRes.status);
+      }
+    }
+    console.log(playerData);
     const playerRes = await fetch(`/api/Players`, {
       method: "POST",
       body: JSON.stringify({ formData: playerData }),
       "Content-Type": "application/json",
     });
     if (!playerRes.ok) {
-      throw new Error("Failed to create player" + userRes.status);
+      throw new Error("Failed to create player" + playerRes.status);
     }
   };
 
@@ -108,20 +134,6 @@ const CreateUser = () => {
           onChange={handleChange}
           className="form-control"
         />
-
-        <label htmlFor="roles">Roles</label>
-        {/* <select
-            name="roles"
-            value={formData.roles}
-            onChange={handleChange}
-            className="form-control"
-            multiple
-          >
-            <option value="commish">Commish</option>
-            <option value="admin">Admin</option>
-            <option value="participant">Participant</option>
-            <option value="scorekeeper">Scorekeeper</option>
-          </select> */}
 
         <button type="submit" className="btn btn-primary" onClick={onSubmit}>
           Submit

@@ -35,10 +35,6 @@ const SeedSelection = ({ event, teams }) => {
     second: teamIds[1],
     third: teamIds[2],
     fourth: teamIds[3],
-    fifth: teamIds[4],
-    sixth: teamIds[5],
-    seventh: teamIds[6],
-    eighth: teamIds[7],
   };
 
   if (EDITMODE) {
@@ -46,10 +42,6 @@ const SeedSelection = ({ event, teams }) => {
     startingSeeds.second = event.seeds[1];
     startingSeeds.third = event.seeds[2];
     startingSeeds.fourth = event.seeds[3];
-    startingSeeds.fifth = event.seeds[4];
-    startingSeeds.sixth = event.seeds[5];
-    startingSeeds.seventh = event.seeds[6];
-    startingSeeds.eighth = event.seeds[7];
   }
 
   const [seeds, setSeeds] = React.useState(startingSeeds);
@@ -66,10 +58,6 @@ const SeedSelection = ({ event, teams }) => {
       second: randomizedSeeds[1],
       third: randomizedSeeds[2],
       fourth: randomizedSeeds[3],
-      fifth: randomizedSeeds[4],
-      sixth: randomizedSeeds[5],
-      seventh: randomizedSeeds[6],
-      eighth: randomizedSeeds[7],
     };
     setSeeds(randomizedSeedsObject);
   };
@@ -91,7 +79,7 @@ const SeedSelection = ({ event, teams }) => {
       seeds: Object.values(seedsArray),
     };
 
-    const res = await fetch(`${BASE_URL}/Events/${event._id}`, {
+    const res = await fetch(`/api/Events/${event._id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -187,66 +175,6 @@ const SeedSelection = ({ event, teams }) => {
           <select
             name="fourth"
             value={seeds.fourth}
-            onChange={handleSeedChange}
-            className="border border-black rounded-md p-2"
-          >
-            {teams.map((team, index) => (
-              <option key={index} value={team.teamId}>
-                {team.name}
-              </option>
-            ))}
-          </select>
-        </div>
-        <div className="flex flex-col mt-4">
-          <label htmlFor="fifth">Fifth Seed</label>
-          <select
-            name="fifth"
-            value={seeds.fifth}
-            onChange={handleSeedChange}
-            className="border border-black rounded-md p-2"
-          >
-            {teams.map((team, index) => (
-              <option key={index} value={team.teamId}>
-                {team.name}
-              </option>
-            ))}
-          </select>
-        </div>
-        <div className="flex flex-col mt-4">
-          <label htmlFor="sixth">Sixth Seed</label>
-          <select
-            name="sixth"
-            value={seeds.sixth}
-            onChange={handleSeedChange}
-            className="border border-black rounded-md p-2"
-          >
-            {teams.map((team, index) => (
-              <option key={index} value={team.teamId}>
-                {team.name}
-              </option>
-            ))}
-          </select>
-        </div>
-        <div className="flex flex-col mt-4">
-          <label htmlFor="seventh">Seventh Seed</label>
-          <select
-            name="seventh"
-            value={seeds.seventh}
-            onChange={handleSeedChange}
-            className="border border-black rounded-md p-2"
-          >
-            {teams.map((team, index) => (
-              <option key={index} value={team.teamId}>
-                {team.name}
-              </option>
-            ))}
-          </select>
-        </div>
-        <div className="flex flex-col mt-4">
-          <label htmlFor="eighth">Eighth Seed</label>
-          <select
-            name="eighth"
-            value={seeds.eighth}
             onChange={handleSeedChange}
             className="border border-black rounded-md p-2"
           >

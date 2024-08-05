@@ -1,5 +1,9 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  images: {
+    domains: ['multisport-games.s3.us-east-2.amazonaws.com"'],
+  },
+
   async headers() {
     return [
       {

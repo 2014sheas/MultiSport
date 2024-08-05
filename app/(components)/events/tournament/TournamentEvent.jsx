@@ -1,12 +1,13 @@
 "use client";
 import React from "react";
 import BtnGameCreation from "./BtnGameCreation";
-import RoundContainer from "./RoundContainer";
 import EventStandings from "./EventStandings";
 import BtnCompleteEvent from "./BtnCompleteEvent";
 import SeedSelection from "./SeedSelection";
 import { useUser } from "@auth0/nextjs-auth0/client";
 import EventMap from "../../location/EventMap";
+import Bracket from "./Bracket";
+import BracketMobile from "./BracketMobile";
 import Link from "next/link";
 
 const TournamentEvent = ({ event, teams, players, games }) => {
@@ -24,7 +25,7 @@ const TournamentEvent = ({ event, teams, players, games }) => {
     }
     if (games?.length > 0) {
       eventStage = "In-Progress";
-      if (games?.find((game) => game.gameId === `${event.eventId}15`).winner) {
+      if (games?.find((game) => game.gameId === `${event.eventId}7`).winner) {
         eventStage = "Complete-Ready";
       }
     }
@@ -89,25 +90,31 @@ const TournamentEvent = ({ event, teams, players, games }) => {
       </div>
     );
   } else {
-    const uniqueRounds = [...new Set(games.map((game) => game.round))].sort(
-      (a, b) => a - b
-    );
     return (
-      <div className="flex flex-col items-center">
-        <h1>{event.name}</h1>
+      <div className="flex flex-col items-center max-h-full overflow-hidden">
+        <h2>{event.name}</h2>
         {isAdmin && adminBlock()}
-        <div className="flex flex-row justify-center">
-          {uniqueRounds.map((round, _index) => (
-            <RoundContainer
-              key={round}
-              event={event}
-              teams={teams}
-              players={players}
-              games={games.filter((game) => game.round === round)}
-            />
-          ))}
-        </div>
         <EventStandings games={games} teams={teams} event={event} />
+        <br />
+        <br />
+        <br />
+        <br />
+        <div className="hidden md:flex">
+          <Bracket
+            event={event}
+            teams={teams}
+            players={players}
+            games={games}
+          />
+        </div>
+        <div className="md:hidden">
+          <BracketMobile
+            event={event}
+            teams={teams}
+            players={players}
+            games={games}
+          />
+        </div>
       </div>
     );
   }

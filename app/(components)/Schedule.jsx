@@ -77,7 +77,7 @@ const Schedule = ({ events }) => {
                       <TableCell className="text-white w-1/2 md:text-lg">
                         {filteredEvent.location ? (
                           <a
-                            href="https://www.google.com/maps/dir//${event.location.formatted_address}"
+                            href={`https://www.google.com/maps/dir//${filteredEvent.location.formatted_address}`}
                             className="text-blue-500 hover:underline"
                             target="_blank"
                             rel="noreferrer"
