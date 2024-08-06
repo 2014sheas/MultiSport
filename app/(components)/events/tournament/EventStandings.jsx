@@ -1,10 +1,26 @@
-import {
-  Table,
-  TableHead,
-  TableRow,
-  TableBody,
-  TableCell,
-} from "@mui/material";
+// This component displays the standings of a tournament event. It is used in the Tournament component.
+
+const EventStandingHeader = () => {
+  return (
+    <div className="flex justify-between w-full h-10 bg-gray-800 px-8 pt-1 rounded-t-md">
+      <div className="w-1/4">Place</div>
+      <div className="w-1/2 text-center">Team</div>
+      <div className="w-1/4 text-right">Points</div>
+    </div>
+  );
+};
+
+const EvbentStandingRow = ({ place, teamName, points }) => {
+  return (
+    <div className="flex justify-between w-full h-10 bg-gray-700 px-8">
+      <div className="w-1/4">{place}</div>
+      <div className="w-1/2 text-center overflow-hidden whitespace-nowrap overflow-ellipsis">
+        {teamName}
+      </div>
+      <div className="w-1/4 text-right">{points}</div>
+    </div>
+  );
+};
 
 const EventStandings = ({ games, teams, event }) => {
   const eventId = event.eventId;
@@ -30,6 +46,7 @@ const EventStandings = ({ games, teams, event }) => {
     const place = placeArray[index];
     const points = pointArray[index];
     let teamName = "TBD";
+    console.log("team", team);
     if (team) {
       teamName = teams.find((t) => t.teamId === team).name;
     }
@@ -43,35 +60,20 @@ const EventStandings = ({ games, teams, event }) => {
   ];
 
   let table = (
-    <Table className="w-96">
-      <TableHead className="bg-slate-600 dark:bg-gray-800">
-        <TableRow>
-          {columns.map((column) => (
-            <TableCell key={column.field} align="center" className="text-white">
-              {column.headerName}
-            </TableCell>
-          ))}
-        </TableRow>
-      </TableHead>
-      <TableBody>
-        {rows.map((row) => (
-          <TableRow key={row.index}>
-            {columns.map((column) => (
-              <TableCell
-                key={column.field}
-                align="center"
-                className="text-white"
-              >
-                {row[column.field]}
-              </TableCell>
-            ))}
-          </TableRow>
-        ))}
-      </TableBody>
-    </Table>
+    <div className="flex flex-col items-center w-4/5 bg-gray-800 rounded-md">
+      <EventStandingHeader />
+      {rows.map((row) => (
+        <EvbentStandingRow
+          key={row.index}
+          place={row.place}
+          teamName={row.teamName}
+          points={row.points}
+        />
+      ))}
+    </div>
   );
 
-  return <div className="flex flex-col items-center w-96">{table}</div>;
+  return <div className="flex flex-col items-center w-full">{table}</div>;
 };
 
 export default EventStandings;

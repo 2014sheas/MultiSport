@@ -38,7 +38,7 @@ const TournamentEvent = ({ event, teams, players, games }) => {
 
       case "Post-Selection":
         return (
-          <div>
+          <div className="flex flex-col items-center w-4/5">
             <BtnGameCreation event={event} teams={teams} />
             <SeedSelection event={event} teams={teams} />
           </div>
@@ -46,7 +46,11 @@ const TournamentEvent = ({ event, teams, players, games }) => {
       case "In-Progress":
         return null;
       case "Complete-Ready":
-        return <BtnCompleteEvent event={event} games={games} />;
+        return (
+          <div className="flex flex-col items-center w-4/5">
+            <BtnCompleteEvent event={event} games={games} />
+          </div>
+        );
       case "Complete":
         return null;
       default:
@@ -76,6 +80,7 @@ const TournamentEvent = ({ event, teams, players, games }) => {
     return (
       <div className="flex flex-col items-center w-full">
         <h1>{event.name}</h1>
+        <br />
         {isAdmin && adminBlock()}
         <h4>
           {date.toLocaleDateString("en-US", {
@@ -91,14 +96,10 @@ const TournamentEvent = ({ event, teams, players, games }) => {
     );
   } else {
     return (
-      <div className="flex flex-col items-center max-h-full overflow-hidden">
+      <div className="flex flex-col items-center max-h-full overflow-visible">
         <h2>{event.name}</h2>
         {isAdmin && adminBlock()}
         <EventStandings games={games} teams={teams} event={event} />
-        <br />
-        <br />
-        <br />
-        <br />
         <div className="hidden md:flex">
           <Bracket
             event={event}

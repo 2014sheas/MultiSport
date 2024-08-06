@@ -43,19 +43,27 @@ const GameView = ({ teams, game }) => {
   };
 
   return (
-    <div className="flex flex-col items-center border-2 rounded-lg bg-slate-900 w-3/5">
+    <div className="flex flex-col items-center border-2 rounded-lg py-4 bg-slate-900 w-5/6 md:w-3/5 max-w-[600px]">
       <h2> {game.status}</h2>
       <div className="flex flex-row  justify-between w-1/2">
         <div className="flex flex-col items-center w-1/2">
-          <label>{hasHomeTeam ? homeTeam.name : `${game.homeTeam})`}</label>
+          <label className="text-center font-bold text-lg">
+            {hasHomeTeam ? homeTeam.abbreviation : `${game.homeTeam})`}
+          </label>
           {homeScoreSwitch(game.status)}
         </div>
         <div className="flex flex-col items-center w-1/2">
-          <label>{hasAwayTeam ? awayTeam.name : `(${game.awayTeam})`}</label>
+          <label className="text-center font-bold text-lg">
+            {hasAwayTeam ? awayTeam.abbreviation : `(${game.awayTeam})`}
+          </label>
           {awayScoreSwitch(game.status)}
         </div>
       </div>
-      {isAdmin && <button onClick={onEdit}>Edit Game</button>}
+      {isAdmin && (
+        <button className="edit-btn w-1/2 mt-4" onClick={onEdit}>
+          Edit Game
+        </button>
+      )}
     </div>
   );
 };

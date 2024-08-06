@@ -26,6 +26,17 @@ const RootLayout = ({ children }) => {
             </div>
             <div className="overflow-y-auto bg-page text-default-text h-full w-full">
               {children}
+              <br />
+              <br />
+              <br />
+              <br />
+              <br />
+              <br />
+              <br />
+              <br />
+              <br />
+              <br />
+              <br />
             </div>
             <div className="fixed md:hidden bottom-0 left-0 z-50 w-full bg-white border-t border-gray-200 dark:bg-gray-700 dark:border-gray-600">
               <NavMobile />

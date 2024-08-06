@@ -89,7 +89,7 @@ const BracketMobile = ({ event, teams, players, games }) => {
       >
         <FontAwesomeIcon icon={faChevronLeft} size="xl" />
       </button>
-      <div className="flex flex-col min-h-[700px] justify-center">
+      <div className="flex flex-col min-h-[300px] justify-center">
         <GameCols
           event={event}
           teams={teams}

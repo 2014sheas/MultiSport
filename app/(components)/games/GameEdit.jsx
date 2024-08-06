@@ -209,63 +209,40 @@ const GameEdit = ({ allGames, teams, game }) => {
     }
   };
 
-  const homeScoreSwitch = (status) => {
-    switch (status) {
-      case "In Progress":
-        return (
-          <input
-            type="number"
-            name="homeScore"
-            value={formData.homeScore}
-            onChange={onFormChange}
-          />
-        );
-      case "Completed":
-        return <label>{formData.homeScore}</label>;
-      default:
-        break;
-    }
-  };
-
-  const awayScoreSwitch = (status) => {
-    switch (status) {
-      case "In Progress":
-        return (
-          <input
-            type="number"
-            name="awayScore"
-            value={formData.awayScore}
-            onChange={onFormChange}
-          />
-        );
-      case "Completed":
-        return <label>{formData.awayScore}</label>;
-      default:
-        break;
-    }
-  };
-
   const buttonSwitch = (status) => {
     switch (status) {
       case "Upcoming":
         return (
-          <button type="submit" onClick={onStartGame}>
+          <button type="submit" className="btn" onClick={onStartGame}>
             Start Game
           </button>
         );
       case "In Progress":
         return (
           <div className="flex flex-col">
-            <button type="submit" onClick={onSubmit}>
+            <br />
+            <button type="submit" className="btn" onClick={onSubmit}>
               Update Score
             </button>
-            <button type="submit" onClick={onCompleteGame}>
+            <br />
+            <button type="submit" className="btn" onClick={onCompleteGame}>
               Complete Game
             </button>
           </div>
         );
       case "Completed":
-        return <div></div>;
+        return (
+          <div className="flex flex-col">
+            <br />
+            <button type="submit" className="btn" onClick={onSubmit}>
+              Update Score
+            </button>
+            <br />
+            <button type="submit" className="btn" onClick={onCompleteGame}>
+              Complete Game
+            </button>
+          </div>
+        );
       default:
         break;
     }
@@ -285,14 +262,30 @@ const GameEdit = ({ allGames, teams, game }) => {
     <div className="flex flex-col items-center border-2 rounded-lg bg-slate-900 w-3/5">
       <h2> {game.status}</h2>
       <form>
-        <div className="flex flex-row ">
-          <div className="flex flex-col items-center">
-            <label>{hasHomeTeam ? homeTeam.abbreviation : game.homeTeam}</label>
-            {homeScoreSwitch(game.status)}
+        <div className="flex flex-row justify-between">
+          <div className="flex flex-col items-center w-1/2">
+            <label className="text-center font-bold text-lg">
+              {hasHomeTeam ? homeTeam.abbreviation : game.homeTeam}
+            </label>
+            <br />
+            <input
+              type="number"
+              name="homeScore"
+              value={formData.homeScore}
+              onChange={onFormChange}
+            />
           </div>
-          <div className="flex flex-col items-center">
-            <label>{hasAwayTeam ? awayTeam.abbreviation : game.awayTeam}</label>
-            {awayScoreSwitch(game.status)}
+          <div className="flex flex-col items-center w-1/2">
+            <label className="text-center font-bold text-lg">
+              {hasAwayTeam ? awayTeam.abbreviation : game.awayTeam}
+            </label>
+            <br />
+            <input
+              type="number"
+              name="awayScore"
+              value={formData.awayScore}
+              onChange={onFormChange}
+            />
           </div>
         </div>
         <div>{buttonSwitch(game.status)}</div>

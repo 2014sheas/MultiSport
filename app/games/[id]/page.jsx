@@ -33,6 +33,7 @@ const GamePage = async ({ params }) => {
   return (
     <div className="flex flex-col items-center">
       <h1>Game {params.id}</h1>
+      <br />
       <GameView teams={teams} game={game} />
     </div>
   );

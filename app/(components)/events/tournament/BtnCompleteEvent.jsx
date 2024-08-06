@@ -2,16 +2,17 @@
 
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
+import updatePoints from "./updatePoints";
 
 const BtnCompleteEvent = ({ event, games }) => {
   const router = useRouter();
 
   const eventId = event.eventId;
   const standings = {
-    first: games.find((game) => game.gameId === `${eventId}15`).winner,
-    second: games.find((game) => game.gameId === `${eventId}15`).loser,
-    third: games.find((game) => game.gameId === `${eventId}13`).loser,
-    fourth: games.find((game) => game.gameId === `${eventId}12`).loser,
+    first: games.find((game) => game.gameId === `${eventId}7`).winner,
+    second: games.find((game) => game.gameId === `${eventId}7`).loser,
+    third: games.find((game) => game.gameId === `${eventId}5`).loser,
+    fourth: games.find((game) => game.gameId === `${eventId}4`).loser,
   };
 
   const standingsArray = [
@@ -36,12 +37,17 @@ const BtnCompleteEvent = ({ event, games }) => {
     if (!res.ok) {
       throw new Error("Failed to update event" + res.status);
     } else {
-      router.push(`/events/${eventId}`);
+      await updatePoints();
+      router.push(`/standings`);
     }
   };
   return (
     <div>
-      <button onClick={completeEvent}>Complete Event</button>
+      <br />
+      <button onClick={completeEvent} className="btn">
+        Complete Event
+      </button>
+      <br />
     </div>
   );
 };

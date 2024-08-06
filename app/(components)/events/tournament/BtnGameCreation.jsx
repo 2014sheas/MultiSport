@@ -29,7 +29,7 @@ const BtnGameCreation = ({ event, teams }) => {
   const secondRoundPlaceholders = firstRoundMatchups.map(
     (matchup) => `${matchup.homeTeam}/${matchup.awayTeam}`
   );
-
+  // All games for an event (4-team tournament)
   const gameDataArray = [
     {
       gameId: `${event.eventId}1`,
@@ -40,7 +40,7 @@ const BtnGameCreation = ({ event, teams }) => {
       awayScore: 0,
       winner: "",
       loser: "",
-      status: "Undetermined",
+      status: "Upcoming",
       type: "Winners Bracket",
       round: 1,
       winnerNextGame: `${event.eventId}3`,
@@ -56,7 +56,7 @@ const BtnGameCreation = ({ event, teams }) => {
       awayScore: 0,
       winner: "",
       loser: "",
-      status: "Undetermined",
+      status: "Upcoming",
       type: "Winners Bracket",
       round: 1,
       winnerNextGame: `${event.eventId}3`,
@@ -77,7 +77,7 @@ const BtnGameCreation = ({ event, teams }) => {
       round: 2,
       winnerNextGame: `${event.eventId}6`,
       loserNextGame: `${event.eventId}5`,
-      nextGamePosition: "away",
+      nextGamePosition: "home",
     },
     {
       gameId: `${event.eventId}4`,
@@ -97,8 +97,8 @@ const BtnGameCreation = ({ event, teams }) => {
     {
       gameId: `${event.eventId}5`,
       event: event.eventId,
-      homeTeam: `Winner Game 3`,
-      awayTeam: `Winner Game 5`,
+      homeTeam: `Loser Game 3`,
+      awayTeam: `Winner Game 4`,
       homeScore: 0,
       awayScore: 0,
       winner: "",
@@ -151,6 +151,7 @@ const BtnGameCreation = ({ event, teams }) => {
     if (!res.ok) {
       throw new Error("Failed to delete games " + res.status);
     }
+    // create games
     for (let gameData of gameDataArray) {
       const res = await fetch("/api/Games", {
         method: "POST",
@@ -161,9 +162,23 @@ const BtnGameCreation = ({ event, teams }) => {
         throw new Error("Failed to create game" + res.status);
       }
     }
+    // change event status to In Progress
+    event.status = "In Progress";
+    const res2 = await fetch(`/api/Events/${event._id}`, {
+      method: "PUT",
+      body: JSON.stringify({ formData: event }),
+      "Content-Type": "application/json",
+    });
+    if (!res2.ok) {
+      throw new Error("Failed to update event" + res.status);
+    }
     router.push(`/events/${event.eventId}`);
   };
-  return <button onClick={createGames}>Create Games</button>;
+  return (
+    <button onClick={createGames} className="btn w-1/3">
+      Create Games
+    </button>
+  );
 };
 
 export default BtnGameCreation;

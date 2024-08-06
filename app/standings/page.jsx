@@ -18,6 +18,8 @@ const StandingsPage = async () => {
   teams.sort((a, b) => b.totalPoints - a.totalPoints);
   return (
     <div className="flex flex-col items-center">
+      <br />
+      <br />
       <Standings teams={teams} />
     </div>
   );

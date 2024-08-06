@@ -1,29 +1,78 @@
 "use client";
 import React, { useState } from "react";
-import {
-  Table,
-  TableHead,
-  TableRow,
-  TableBody,
-  TableCell,
-  Tab,
-  TableSortLabel,
-} from "@mui/material";
-
-const headCells = [
-  { id: "team", label: "Team", numeric: false },
-  { id: "points", label: "Points", numeric: true },
-  { id: "first", label: "First", numeric: true },
-  { id: "second", label: "Second", numeric: true },
-  { id: "third", label: "Third", numeric: true },
-  { id: "fourth", label: "Fourth", numeric: true },
-];
 
 const Standings = ({ teams }) => {
   const [order, setOrder] = useState("asc");
-  const [orderBy, setOrderBy] = React.useState("points");
+  const [orderBy, setOrderBy] = useState("totalPoints");
 
-  const handleRequestSort = (event, property) => {
+  const showCarrot = (property) => {
+    if (orderBy === property) {
+      return order === "asc" ? "▲" : "▼";
+    }
+    return "";
+  };
+
+  const StandingHeader = () => {
+    return (
+      <div className="flex justify-between w-full h-10 bg-gray-800 px-8 pt-1 rounded-t-md">
+        <div
+          className="w-1/6 text-center"
+          onClick={() => handleRequestSort("team")}
+        >
+          Team{showCarrot("team")}
+        </div>
+        <div
+          className="w-1/6 text-right"
+          onClick={() => handleRequestSort("totalPoints")}
+        >
+          Points{showCarrot("totalPoints")}
+        </div>
+        <div
+          className="w-1/6 text-right"
+          onClick={() => handleRequestSort("first")}
+        >
+          First{showCarrot("first")}
+        </div>
+        <div
+          className="w-1/6 text-right"
+          onClick={() => handleRequestSort("second")}
+        >
+          Second{showCarrot("second")}
+        </div>
+        <div
+          className="w-1/6 text-right"
+          onClick={() => handleRequestSort("third")}
+        >
+          Third{showCarrot("third")}
+        </div>
+        <div
+          className="w-1/6 text-right hidden md:block"
+          onClick={() => handleRequestSort("fourth")}
+        >
+          Fourth{showCarrot("fourth")}
+        </div>
+      </div>
+    );
+  };
+
+  const StandingRow = ({ team, points }) => {
+    return (
+      <div className="flex justify-between w-full h-10 bg-gray-700 px-8">
+        <div className="w-1/6 text-center overflow-hidden whitespace-nowrap overflow-ellipsis">
+          {team.abbreviation}
+        </div>
+        <div className="w-1/6 text-right">{team.totalPoints}</div>
+        <div className="w-1/6 text-right">{team.first.length}</div>
+        <div className="w-1/6 text-right">{team.second.length}</div>
+        <div className="w-1/6 text-right">{team.third.length}</div>
+        <div className="w-1/6 text-right hidden md:block">
+          {team.fourth.length}
+        </div>
+      </div>
+    );
+  };
+
+  const handleRequestSort = (property) => {
     const isAsc = orderBy === property && order === "asc";
     setOrder(isAsc ? "desc" : "asc");
     setOrderBy(property);
@@ -46,83 +95,12 @@ const Standings = ({ teams }) => {
     });
   };
 
-  const headCells = [
-    { id: "team", label: "Team", numeric: false },
-    { id: "totalPoints", label: "Points", numeric: true },
-    { id: "first", label: "First", numeric: true },
-    { id: "second", label: "Second", numeric: true },
-    { id: "third", label: "Third", numeric: true },
-    { id: "fourth", label: "Fourth", numeric: true },
-  ];
-
   return (
-    <div className="flex flex-col items-center">
-      <h1>Standings</h1>
-      <Table className="w-1/2 size=small bg-slate-600 dark:bg-gray-800">
-        <TableHead>
-          <TableRow>
-            {headCells.map((headCell) => (
-              <TableCell
-                key={headCell.id}
-                sortDirection={orderBy === headCell.id ? order : false}
-                className="text-white"
-              >
-                <TableSortLabel
-                  active={orderBy === headCell.id}
-                  direction={orderBy === headCell.id ? order : "asc"}
-                  onClick={(event) => handleRequestSort(event, headCell.id)}
-                  className="text-white"
-                >
-                  {headCell.label}
-                </TableSortLabel>
-              </TableCell>
-            ))}
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {teams.map((team, index) => (
-            <TableRow
-              key={team.teamId}
-              className="even:bg-gray-300 odd:bg-gray-500 dark:even:bg-gray-700 dark:odd:bg-gray-800"
-            >
-              <TableCell align="center" className="text-white">
-                {team.name}
-              </TableCell>
-              <TableCell align="center" className="text-white">
-                {team.totalPoints}
-              </TableCell>
-              <TableCell
-                align="center"
-                title={team.first}
-                className="text-white"
-              >
-                {team.first.length}
-              </TableCell>
-              <TableCell
-                align="center"
-                title={team.second}
-                className="text-white"
-              >
-                {team.second.length}
-              </TableCell>
-              <TableCell
-                align="center"
-                title={team.third}
-                className="text-white"
-              >
-                {team.third.length}
-              </TableCell>
-              <TableCell
-                align="center"
-                title={team.fourth}
-                className="text-white"
-              >
-                {team.fourth.length}
-              </TableCell>
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table>
+    <div className="w-full">
+      {StandingHeader()}
+      {teams.map((team, index) => (
+        <StandingRow key={team.teamId} team={team} />
+      ))}
     </div>
   );
 };
