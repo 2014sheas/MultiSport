@@ -1,15 +1,44 @@
 "use client";
-import {
-  Table,
-  TableHead,
-  TableRow,
-  TableBody,
-  TableCell,
-  Tab,
-  TableSortLabel,
-} from "@mui/material";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+
+const StatusColorMap = () => {
+  return {
+    Scheduled: "bg-blue-500",
+    "In-Progress": "bg-yellow-500",
+    Completed: "bg-green-500",
+  };
+};
+
+const ScheduleRow = ({ event }) => {
+  return (
+    <div className="flex flex-row w-full bg-gray-600 p-2 my-2 border-b-2 border-gray-400">
+      <div className="w-1/3 justify-center">
+        <Link href={`/events/${event.eventId}`}>{event.eventName}</Link>
+      </div>
+      <div className="w-1/4">
+        {event.date.toLocaleTimeString("en-US", {
+          hour: "2-digit",
+          minute: "2-digit",
+        })}
+      </div>
+      <div className="w-5/12">
+        {event.location ? (
+          <a
+            href={`https://www.google.com/maps/dir//${event.location.formatted_address}`}
+            className="text-blue-500 hover:underline"
+            target="_blank"
+            rel="noreferrer"
+          >
+            {event.location.name}
+          </a>
+        ) : (
+          ""
+        )}
+      </div>
+    </div>
+  );
+};
 
 const Schedule = ({ events }) => {
   const router = useRouter();
@@ -50,48 +79,13 @@ const Schedule = ({ events }) => {
             className="mb-4 w-full flex flex-col items-center"
           >
             <h2>{dayDict[uniqueDate]}</h2>
-            <Table className="bg-slate-600 dark:bg-gray-800 w-11/12">
-              <TableBody>
-                {eventRows
-                  .filter(
-                    (event) => new Date(event.date).getDay() === uniqueDate
-                  )
-                  .map((filteredEvent, _index) => (
-                    <TableRow
-                      className="hover:bg-slate-700 dark:hover:bg-gray-700 w-full"
-                      onClick={() => onRowClick(filteredEvent)}
-                      key={filteredEvent.eventId}
-                    >
-                      <TableCell className="text-white w-1/3 md:text-lg">
-                        {filteredEvent.eventName}
-                      </TableCell>
-                      <TableCell
-                        className="text-white w-1/6 md:text-lg"
-                        suppressHydrationWarning={true}
-                      >
-                        {filteredEvent.date.toLocaleTimeString("en-US", {
-                          hour: "2-digit",
-                          minute: "2-digit",
-                        })}
-                      </TableCell>
-                      <TableCell className="text-white w-1/2 md:text-lg">
-                        {filteredEvent.location ? (
-                          <a
-                            href={`https://www.google.com/maps/dir//${filteredEvent.location.formatted_address}`}
-                            className="text-blue-500 hover:underline"
-                            target="_blank"
-                            rel="noreferrer"
-                          >
-                            {filteredEvent.location.name}
-                          </a>
-                        ) : (
-                          ""
-                        )}
-                      </TableCell>
-                    </TableRow>
-                  ))}
-              </TableBody>
-            </Table>
+            <div className="flex flex-col w-11/12 rounded-lg bg-gray-600">
+              {eventRows
+                .filter((event) => new Date(event.date).getDay() === uniqueDate)
+                .map((filteredEvent, _index) => (
+                  <ScheduleRow event={filteredEvent} key={_index} />
+                ))}
+            </div>
           </div>
         ))}
     </div>
