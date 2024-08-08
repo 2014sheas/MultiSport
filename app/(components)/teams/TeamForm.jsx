@@ -3,7 +3,7 @@
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 
-const TeamForm = ({ team }) => {
+const TeamForm = ({ team, players }) => {
   const EDITMODE = team._id !== "new";
   const router = useRouter();
 
@@ -11,11 +11,17 @@ const TeamForm = ({ team }) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
+  const handleMemberChange = (e) => {
+    const selected = Array.from(e.target.selectedOptions).map(
+      (option) => option.value
+    );
+    setFormData({ ...formData, [e.target.name]: selected });
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (EDITMODE) {
-      formData.sixth = ["Basbeall", "Basketball", "Football", "Soccer"];
       const res = await fetch(`/api/Teams/${team._id}`, {
         method: "PUT",
         body: JSON.stringify({ formData }),
@@ -35,6 +41,30 @@ const TeamForm = ({ team }) => {
       }
     }
 
+    if (formData.members != startingTeamData.members) {
+      for (let i = 0; i < formData.members.length; i++) {
+        const res = await fetch(`/api/Players/${formData.members[i]}`, {
+          method: "PUT",
+          body: JSON.stringify({ team: formData.teamId }),
+          "Content-Type": "application/json",
+        });
+        if (!res.ok) {
+          throw new Error("Failed to update player" + res.status);
+        }
+      }
+
+      for (let i = 0; i < startingTeamData.members.length; i++) {
+        const res = await fetch(`/api/Players/${startingTeamData.members[i]}`, {
+          method: "PUT",
+          body: JSON.stringify({ team: "" }),
+          "Content-Type": "application/json",
+        });
+        if (!res.ok) {
+          throw new Error("Failed to update player" + res.status);
+        }
+      }
+    }
+
     router.refresh();
     router.push("/");
   };
@@ -43,12 +73,16 @@ const TeamForm = ({ team }) => {
     name: "",
     teamId: "",
     abbreviation: "",
+    members: [],
+    captains: [],
   };
 
   if (EDITMODE) {
     startingTeamData.name = team.name;
     startingTeamData.teamId = team.teamId;
     startingTeamData.abbreviation = team.abbreviation;
+    startingTeamData.members = team.members;
+    startingTeamData.captains = team.captains;
   }
 
   const [formData, setFormData] = useState(startingTeamData);
@@ -82,6 +116,32 @@ const TeamForm = ({ team }) => {
           value={formData.abbreviation}
           onChange={handleChange}
         />
+        <label>Members </label>
+        <select
+          name="members"
+          value={formData.members}
+          onChange={handleMemberChange}
+          multiple
+        >
+          {players.map((player) => (
+            <option key={player.playerId} value={player.playerId}>
+              {player.first_name + " " + player.last_name}
+            </option>
+          ))}
+        </select>
+        <label>Captains </label>
+        <select
+          name="captains"
+          value={formData.captains}
+          onChange={handleMemberChange}
+          multiple
+        >
+          {formData.members.map((member) => (
+            <option key={member} value={member}>
+              {member}
+            </option>
+          ))}
+        </select>
         <button type="submit">{EDITMODE ? "Update" : "Create"} Team</button>
       </form>
     </div>

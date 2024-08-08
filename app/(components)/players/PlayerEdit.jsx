@@ -37,10 +37,11 @@ const PlayerEdit = ({ player, events }) => {
           <br />
         </div>
       ) : null}
-
-      <button onClick={handleImageEditChange} className="btn">
-        {editingImage ? "Back" : "Edit Profile Picture"}
-      </button>
+      <div className="flex flex-col items-center">
+        <button onClick={handleImageEditChange} className="btn w-1/3">
+          {editingImage ? "Back" : "Edit Profile Picture"}
+        </button>
+      </div>
       {editingImage ? (
         <div>
           <UploadForm profileType={"player"} profileUser={player} />

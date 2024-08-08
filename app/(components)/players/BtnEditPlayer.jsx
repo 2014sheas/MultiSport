@@ -11,7 +11,7 @@ const BtnEditPlayer = ({ player }) => {
   };
 
   return (
-    <button onClick={handleEditPlayer} className="btn">
+    <button onClick={handleEditPlayer} className="btn w-1/2">
       Edit Profile
     </button>
   );

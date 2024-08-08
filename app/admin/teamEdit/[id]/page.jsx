@@ -14,8 +14,20 @@ const getTeamById = async (id) => {
   }
 };
 
+const getPlayers = async () => {
+  try {
+    const res = await fetch(`${BASE_URL}/api/Players`, {
+      cache: "no-store",
+    });
+    return res.json();
+  } catch (error) {
+    console.log("Failed to get players", error);
+  }
+};
+
 const TeamEditPage = async ({ params }) => {
   const EDITMODE = params.id !== "new";
+  const players = await getPlayers();
 
   let teamData = {};
   let updateTeamData = {};
@@ -28,7 +40,7 @@ const TeamEditPage = async ({ params }) => {
       _id: "new",
     };
   }
-  return <TeamForm team={updateTeamData} />;
+  return <TeamForm team={updateTeamData} players={players} />;
 };
 
 export default TeamEditPage;

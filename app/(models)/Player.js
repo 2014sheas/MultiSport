@@ -63,11 +63,15 @@ const PlayersSchema = new Schema({
     type: Object,
     required: false,
   },
-  teamId: {
+  alerts: {
+    type: Array,
+    required: false,
+  },
+  song: {
     type: String,
     required: false,
   },
-  alerts: {
+  bowlScore: {
     type: Array,
     required: false,
   },

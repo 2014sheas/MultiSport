@@ -1,14 +1,22 @@
 "use client";
 
 import React from "react";
-import getCroppedImg from "./cropImage";
 import Image from "next/image";
 
-const ShowUpload = ({ imageurl, croppedArea }) => {
-  cropImage();
+const ShowUpload = ({ imageurl, altText, size }) => {
   return (
-    <div className="flex items-center justify-center">
-      <Image src={imageurl} alt="Cropped Image" width={200} height={200} />
+    <div className={`relative rounded-full`}>
+      <Image
+        src={imageurl}
+        alt={altText}
+        className="rounded-full"
+        style={{
+          width: `${size}px`,
+          height: `${size}px`,
+        }}
+        width={500}
+        height={500}
+      />
     </div>
   );
 };

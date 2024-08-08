@@ -1,10 +1,10 @@
 import React from "react";
 import Image from "next/image";
 import ShowUpload from "@/app/(components)/uploads/ShowUpload";
-import getCroppedImg from "@/app/(components)/uploads/cropImage";
 import BtnEditPlayer from "@/app/(components)/players/BtnEditPlayer";
 import { withPageAuthRequired, getSession } from "@auth0/nextjs-auth0";
 import { Rating } from "@mui/material";
+import Link from "next/link";
 
 const BASE_URL = process.env.BASE_URL;
 
@@ -46,13 +46,14 @@ const getPlayerById = async (id) => {
   }
 };
 
-const showCroppedImage = async (imageurl, croppedArea) => {
+const getTeams = async () => {
   try {
-    const croppedImage = await getCroppedImg(imageurl, croppedArea);
-    const croppedUrl = URL.createObjectURL(croppedImage);
-    console.log({ croppedUrl });
+    const res = await fetch(`${BASE_URL}/api/Teams`, {
+      cache: "no-store",
+    });
+    return res.json();
   } catch (error) {
-    console.error(error);
+    console.error("Failed to get teams", error);
   }
 };
 
@@ -60,7 +61,12 @@ const PlayerPage = async ({ params }) => {
   const playerData = await getPlayerById(params.id);
   const player = playerData.foundPlayer;
   const events = await getEvents();
-  let imageUrl, croppedImage;
+  const teams = await getTeams();
+  let imageUrl = null;
+
+  const overallRating =
+    Object.values(player?.ratings).reduce((acc, rating) => acc + rating, 0) /
+    Object.values(player?.ratings).length;
 
   const session = await getSession();
   const user = session?.user;
@@ -69,41 +75,78 @@ const PlayerPage = async ({ params }) => {
   if (!player) {
     return <p>Player not found</p>;
   }
-  if (playerData.profile_image && playerData.profile_image.length > 0) {
+  if (player.profile_image && player.profile_image.length > 0) {
     imageUrl = await getImage(player.profile_image);
-    croppedImage = await showCroppedImage(imageUrl, player.croppedArea);
-  } else {
-    imageUrl = null;
+  }
+
+  let playerTeamName = null;
+  let playerTeamLogo = null;
+  if (player.team) {
+    const playerTeam = teams.find((team) => team.teamId === player.team);
+    if (playerTeam.logoUrl) {
+      playerTeamLogo = await getImage(playerTeam.logoUrl);
+    }
+    playerTeamName = playerTeam.name;
   }
 
   const eventsForRatings = Object.keys(player?.ratings);
 
   return (
     <div className="flex flex-col items-center">
-      <h2>
+      <h1>
         {player.first_name} {player.last_name}
-      </h2>
-      {userCanEdit && <BtnEditPlayer player={player} />}
-      {player.team?.length > 0 && (
-        <p className="text-lg font-bold">Team: {player.team}</p>
+      </h1>
+      {playerTeamName && (
+        <Link href={`/teams/${player.team}`}>
+          <div className="flex flex-row items-center">
+            {playerTeamLogo && (
+              <div className="pr-2">
+                <ShowUpload
+                  imageurl={playerTeamLogo}
+                  altText={playerTeamName}
+                  size={32}
+                />
+              </div>
+            )}
+            <h4 className="text-gray-400">{playerTeamName}</h4>
+          </div>
+        </Link>
+      )}
+      <br />
+      {imageUrl && (
+        <ShowUpload
+          imageurl={imageUrl}
+          altText={player.first_name}
+          size={256}
+        />
+      )}
+      <br />
+      {userCanEdit && (
+        <div className="w-full flex flex-col items-center">
+          <BtnEditPlayer player={player} />
+          <br />
+        </div>
       )}
       <p>{player.bio}</p>
+
       <br />
       <div>
-        <p className="text-lg font-bold">Event Self-Ratings:</p>
+        <p className="text-lg font-bold">Self-Ratings:</p>
+        <div className="flex items-center">
+          <div className="w-20">Overall:</div>
+          <Rating value={overallRating} readOnly />
+        </div>
+
+        <br />
         {eventsForRatings.map((event) => (
           <div key={event} className="flex items-center">
-            {events.find((e) => e.eventId === event)?.name}:{" "}
+            <div className="w-20">
+              {events.find((e) => e.eventId === event)?.name}:{" "}
+            </div>
             <Rating value={player.ratings[event]} readOnly />
           </div>
         ))}
       </div>
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      {imageUrl ? <showCroppedImage imageurl={croppedImage} /> : <br />}
     </div>
   );
 };

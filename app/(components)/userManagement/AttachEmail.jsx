@@ -47,7 +47,6 @@ const AttachEmail = (player) => {
       ...playerData,
       email: email,
       userId: email.split("@")[0],
-      playerId: email.split("@")[0],
     };
 
     const userData = {

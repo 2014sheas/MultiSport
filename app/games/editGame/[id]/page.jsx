@@ -27,7 +27,7 @@ const getTeams = async () => {
 };
 
 const GamePage = async ({ params }) => {
-  const allowedRoles = ["admin", "commish", "scorekeeper"];
+  const allowedRoles = ["admin", "commish", "scorekeeper", "captain"];
   const session = await getSession();
   const user = session?.user;
   const userRoles = user?.["https://multisport.games/roles"];

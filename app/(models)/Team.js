@@ -19,6 +19,10 @@ const TeamSchema = new Schema(
       type: Array,
       required: true,
     },
+    captains: {
+      type: Array,
+      required: true,
+    },
     first: {
       type: Array,
       required: false,
@@ -35,22 +39,6 @@ const TeamSchema = new Schema(
       type: Array,
       required: false,
     },
-    fifth: {
-      type: Array,
-      required: false,
-    },
-    sixth: {
-      type: Array,
-      required: false,
-    },
-    seventh: {
-      type: Array,
-      required: false,
-    },
-    eighth: {
-      type: Array,
-      required: false,
-    },
     totalPoints: {
       type: Number,
       required: false,
@@ -58,6 +46,14 @@ const TeamSchema = new Schema(
     abbreviation: {
       type: String,
       required: true,
+    },
+    motto: {
+      type: String,
+      required: false,
+    },
+    logoUrl: {
+      type: String,
+      required: false,
     },
   },
   {

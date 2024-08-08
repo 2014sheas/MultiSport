@@ -46,7 +46,6 @@ const EventStandings = ({ games, teams, event }) => {
     const place = placeArray[index];
     const points = pointArray[index];
     let teamName = "TBD";
-    console.log("team", team);
     if (team) {
       teamName = teams.find((t) => t.teamId === team).name;
     }

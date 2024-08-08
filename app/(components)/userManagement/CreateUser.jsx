@@ -79,7 +79,6 @@ const CreateUser = ({ events }) => {
         throw new Error("Failed to create user" + userRes.status);
       }
     }
-    console.log(playerData);
     const playerRes = await fetch(`/api/Players`, {
       method: "POST",
       body: JSON.stringify({ formData: playerData }),

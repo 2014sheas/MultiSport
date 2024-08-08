@@ -52,7 +52,7 @@ const NavMobile = () => {
           <Link href="/standings/">
             <FontAwesomeIcon icon={faListOl} className="icon" />
           </Link>
-          <Link href="/players/">
+          <Link href="/teams/">
             <FontAwesomeIcon icon={faUsers} className="icon" />
           </Link>
           <Link href="/admin/">
