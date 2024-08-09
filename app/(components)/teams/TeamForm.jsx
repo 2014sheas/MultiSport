@@ -82,6 +82,7 @@ const TeamForm = ({ team, players }) => {
     abbreviation: "",
     members: [],
     captains: [],
+    logoUrl: "Default_Profile.png",
   };
 
   if (EDITMODE) {

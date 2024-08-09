@@ -5,6 +5,8 @@ import BtnEditPlayer from "@/app/(components)/players/BtnEditPlayer";
 import { withPageAuthRequired, getSession } from "@auth0/nextjs-auth0";
 import { Rating } from "@mui/material";
 import Link from "next/link";
+import AttachEmail from "@/app/(components)/userManagement/AttachEmail";
+import PlayerEdit from "@/app/(components)/players/PlayerEdit";
 
 const BASE_URL = process.env.BASE_URL;
 
@@ -71,6 +73,9 @@ const PlayerPage = async ({ params }) => {
   const session = await getSession();
   const user = session?.user;
   const userCanEdit = user?.nickname === player.userId;
+  const userRoles = session?.user["https://multisport.games/roles"];
+  const isAdmin =
+    userRoles?.includes("admin") || userRoles?.includes("commish");
 
   if (!player) {
     return <p>Player not found</p>;
@@ -91,8 +96,24 @@ const PlayerPage = async ({ params }) => {
 
   const eventsForRatings = Object.keys(player?.ratings);
 
+  const userhasEMail = user?.email ? true : false;
+
   return (
     <div className="flex flex-col items-center">
+      {isAdmin && (
+        <div className="flex flex-col items-center">
+          {userhasEMail && (
+            <h1 className="text-red-500">User does not have email</h1>
+          )}
+          <Link href={`/admin/playerEdit/${player.playerId}`}>
+            <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+              Edit Player
+            </button>
+          </Link>
+          <br />
+          <br />
+        </div>
+      )}
       <h1>
         {player.first_name} {player.last_name}
       </h1>

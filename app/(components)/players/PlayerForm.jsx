@@ -53,7 +53,7 @@ const PlayerForm = ({ player, events }) => {
     bio: "",
     strengths: "",
     weaknesses: "",
-    profile_image: "Testing",
+    profile_image: "Profile_Placeholder.png",
     ratings: ratings,
   };
 

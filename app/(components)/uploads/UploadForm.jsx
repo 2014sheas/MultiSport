@@ -18,7 +18,7 @@ const UploadForm = ({ profileType, profileUser }) => {
   const onFileChange = async (e) => {
     if (e.target.files && e.target.files.length > 0) {
       const file = e.target.files[0];
-      if (file.size > 5000000) {
+      if (file.size > 20000000) {
         alert("File is too large. Please select a file under 5MB.");
         return;
       }
