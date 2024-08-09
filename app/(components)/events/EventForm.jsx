@@ -158,15 +158,17 @@ const EventForm = ({ event, teams }) => {
         />
         <label>Event Type</label>
         <select
-          id="type"
-          name="type"
+          id="eventType"
+          name="eventType"
           type="text"
           onChange={handleChange}
           required={true}
           value={formData.eventType}
         >
           <option value="Tournament">Tournament</option>
-          <option value="Scored">Scored</option>
+          <option value="Bowling">Bowling</option>
+          <option value="Relay">Relay</option>
+          <option value="Softball">Softball</option>
         </select>
         <label>Date</label>
         <input

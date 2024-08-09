@@ -1,5 +1,6 @@
 import TournamentEvent from "@/app/(components)/events/tournament/TournamentEvent";
 import ScoredEvent from "@/app/(components)/events/scored/ScoredEvent";
+import BowlingPage from "@/app/(components)/events/bowling/BowlingPage";
 
 const BASE_URL = process.env.BASE_URL;
 
@@ -87,6 +88,8 @@ const EventPage = async ({ params }) => {
         games={eventGames}
       />
     );
+  } else if (eventData.eventType == "Bowling") {
+    return <BowlingPage event={eventData} teams={teams} players={players} />;
   } else {
     return <ScoredEvent event={eventData} teams={teams} players={players} />;
   }

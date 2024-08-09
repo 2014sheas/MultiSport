@@ -1,5 +1,6 @@
 "use client";
 
+import { toFormData } from "axios";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 
@@ -42,26 +43,32 @@ const TeamForm = ({ team, players }) => {
     }
 
     if (formData.members != startingTeamData.members) {
-      for (let i = 0; i < formData.members.length; i++) {
-        const res = await fetch(`/api/Players/${formData.members[i]}`, {
+      for (let i = 0; i < startingTeamData.members.length; i++) {
+        const playerId = startingTeamData.members[i];
+        const player = players.find((player) => player.playerId === playerId);
+        const updatedPlayer = { ...player, team: "" };
+        const res = await fetch(`/api/Players/${player._id}`, {
           method: "PUT",
-          body: JSON.stringify({ team: formData.teamId }),
+          body: JSON.stringify({ formData: updatedPlayer }),
           "Content-Type": "application/json",
         });
         if (!res.ok) {
           throw new Error("Failed to update player" + res.status);
         }
       }
+    }
 
-      for (let i = 0; i < startingTeamData.members.length; i++) {
-        const res = await fetch(`/api/Players/${startingTeamData.members[i]}`, {
-          method: "PUT",
-          body: JSON.stringify({ team: "" }),
-          "Content-Type": "application/json",
-        });
-        if (!res.ok) {
-          throw new Error("Failed to update player" + res.status);
-        }
+    for (let i = 0; i < formData.members.length; i++) {
+      const playerId = formData.members[i];
+      const player = players.find((player) => player.playerId === playerId);
+      const updatedPlayer = { ...player, team: team.teamId };
+      const res = await fetch(`/api/Players/${player._id}`, {
+        method: "PUT",
+        body: JSON.stringify({ formData: updatedPlayer }),
+        "Content-Type": "application/json",
+      });
+      if (!res.ok) {
+        throw new Error("Failed to update player" + res.status);
       }
     }
 

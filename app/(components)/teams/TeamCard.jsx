@@ -32,22 +32,14 @@ const TeamCard = async ({ team, players }) => {
   }
 
   let teamMembers = team.members.map((member) => {
-    const isCaptain = team.captains && team.captains.includes(member);
-    const player = players.find((p) => p.playerId === member);
-    return (
-      <div key={member} className="flex flex-row items-center">
-        <p>
-          {player.first_name} {player.last_name}
-        </p>
-        <p className="text-l text-gray-400">{writeCaptain(isCaptain)}</p>
-      </div>
-    );
+    const player = players.find((player) => player.playerId === member);
+    return player;
   });
 
   //sort members by last name, then first name
   teamMembers.sort((a, b) => {
-    const aName = a.split(" ");
-    const bName = b.split(" ");
+    const aName = [a.first_name, a.last_name];
+    const bName = [b.first_name, b.last_name];
     if (aName[1] < bName[1]) {
       return -1;
     }
@@ -63,6 +55,18 @@ const TeamCard = async ({ team, players }) => {
     return;
   });
 
+  let teamMemberSpan = (member) => {
+    const isCaptain = team.captains && team.captains.includes(member.playerId);
+    return (
+      <div key={member._id} className="flex flex-row items-center">
+        <p>
+          {member.first_name} {member.last_name}
+        </p>
+        <p className="text-l text-gray-400">{writeCaptain(isCaptain)}</p>
+      </div>
+    );
+  };
+
   //dived the members into two equal groups
   const half = Math.ceil(teamMembers.length / 2);
   let firstHalf = [];
@@ -75,19 +79,15 @@ const TeamCard = async ({ team, players }) => {
   }
 
   const memberRows = (
-    <div className="flex flex-row">
-      <div>
+    <div className="flex flex-row w-full">
+      <div className="px-6">
         {firstHalf.map((member) => (
-          <span key={member} className="pr-2">
-            {member}
-          </span>
+          <span key={member._id}>{teamMemberSpan(member)}</span>
         ))}
       </div>
       <div>
         {secondHalf.map((member) => (
-          <span key={member} className="pr-2">
-            {member}
-          </span>
+          <span key={member._id}>{teamMemberSpan(member)}</span>
         ))}
       </div>
     </div>

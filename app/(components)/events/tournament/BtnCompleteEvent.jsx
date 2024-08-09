@@ -2,7 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
-import updatePoints from "./updatePoints";
+import updatePoints from "../updatePoints";
 
 const BtnCompleteEvent = ({ event, games }) => {
   const router = useRouter();

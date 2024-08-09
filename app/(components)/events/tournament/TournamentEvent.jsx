@@ -9,6 +9,7 @@ import EventMap from "../../location/EventMap";
 import Bracket from "./Bracket";
 import BracketMobile from "./BracketMobile";
 import Link from "next/link";
+import RatingStandings from "../RatingStandings";
 
 const TournamentEvent = ({ event, teams, players, games }) => {
   const { user, error, isLoading } = useUser();
@@ -92,6 +93,9 @@ const TournamentEvent = ({ event, teams, players, games }) => {
         </h4>
         <br />
         {mapBlock()}
+        <br />
+        <br />
+        <RatingStandings event={event} teams={teams} players={players} />
       </div>
     );
   } else {
