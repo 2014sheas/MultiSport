@@ -43,6 +43,18 @@ const EventSchema = new Schema(
       type: Object,
       required: false,
     },
+    rules: {
+      type: String,
+      required: false,
+    },
+    equipment_Individual: {
+      type: String,
+      required: false,
+    },
+    equipment_Overall: {
+      type: String,
+      required: false,
+    },
   },
   {
     timestamps: true,

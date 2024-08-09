@@ -8,6 +8,7 @@ import BowlingTeamForm from "./BowlingTeamForm";
 import BowlingActivePage from "./BowlingActivePage";
 
 const BowlingPage = ({ event, teams, players }) => {
+  console.log("in Bowling pAge");
   const { user, error, isLoading } = useUser();
   const userRoles = user?.["https://multisport.games/roles"];
   const isAdmin =

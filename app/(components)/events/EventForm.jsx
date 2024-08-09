@@ -84,6 +84,7 @@ const EventForm = ({ event, teams }) => {
     status: "Upcoming",
     results: [],
     location: null,
+    rules: "",
   };
 
   const pointArrOptions = [
@@ -104,6 +105,7 @@ const EventForm = ({ event, teams }) => {
     startingEventData.status = event.status;
     startingEventData.results = event.results;
     startingEventData.location = event.location;
+    startingEventData.rules = event.rules;
   }
 
   const defaultResults = [
@@ -231,6 +233,13 @@ const EventForm = ({ event, teams }) => {
             </div>
           </APIProvider>
         </div>
+        <label>Rules</label>
+        <textarea
+          id="rules"
+          name="rules"
+          onChange={handleChange}
+          value={formData.rules}
+        ></textarea>
 
         {/* DEBUG */}
         <label>Results</label>
