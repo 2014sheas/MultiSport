@@ -3,7 +3,7 @@ import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { useUser } from "@auth0/nextjs-auth0/client";
 
-const GameEdit = ({ allGames, teams, game }) => {
+const GameEdit = ({ allGames, teams, game, event }) => {
   const router = useRouter();
   const { user } = useUser();
   const userRoles = user?.["https://multisport.games/roles"];
@@ -15,7 +15,6 @@ const GameEdit = ({ allGames, teams, game }) => {
   const awayTeam = teams.find((team) => team.teamId === game.awayTeam);
   const hasHomeTeam = homeTeam ? true : false;
   const hasAwayTeam = awayTeam ? true : false;
-  const hasTeams = hasHomeTeam && hasAwayTeam;
 
   const [formData, setformData] = useState(game);
 
@@ -112,7 +111,7 @@ const GameEdit = ({ allGames, teams, game }) => {
   const onCompleteGame = async (e) => {
     e.preventDefault();
     if (formData.homeScore === formData.awayScore) {
-      throw new Error("Game cannot be completed with a tie");
+      alert("Game cannot end in a tie.");
     }
     formData.winner =
       formData.homeScore > formData.awayScore ? game.homeTeam : game.awayTeam;
@@ -210,6 +209,14 @@ const GameEdit = ({ allGames, teams, game }) => {
   };
 
   const buttonSwitch = (status) => {
+    if (event.status === "Completed") {
+      // return disabled button
+      return (
+        <button type="submit" className="btn bg-slate-500" disabled>
+          Event Completed
+        </button>
+      );
+    }
     switch (status) {
       case "Upcoming":
         return (

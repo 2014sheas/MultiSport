@@ -60,6 +60,7 @@ const TeamCaptainForm = ({ team, players }) => {
           name="abbreviation"
           value={formData.abbreviation}
           onChange={handleChange}
+          maxLength={4}
         />
         <label>Motto</label>
         <input

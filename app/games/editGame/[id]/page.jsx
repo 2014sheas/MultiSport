@@ -26,6 +26,17 @@ const getTeams = async () => {
   }
 };
 
+const getEventById = async (id) => {
+  try {
+    const res = await fetch(`${BASE_URL}/api/Events/${id}`, {
+      cache: "no-store",
+    });
+    return res.json();
+  } catch (error) {
+    console.log("Failed to get event", error);
+  }
+};
+
 const GamePage = async ({ params }) => {
   const allowedRoles = ["admin", "commish", "scorekeeper", "captain"];
   const session = await getSession();
@@ -36,10 +47,14 @@ const GamePage = async ({ params }) => {
   let games = await getGames();
   let teams = await getTeams();
   let game = games.find((game) => game.gameId == params.id);
+  let foundEvent = await getEventById(game.event);
+  const event = foundEvent.foundEvent;
 
   const editSwitch = () => {
     if (canEdit) {
-      return <GameEdit allGames={games} teams={teams} game={game} />;
+      return (
+        <GameEdit allGames={games} teams={teams} game={game} event={event} />
+      );
     } else {
       return (
         <div>
