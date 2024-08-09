@@ -1,6 +1,6 @@
 import TournamentEvent from "@/app/(components)/events/tournament/TournamentEvent";
 import ScoredEvent from "@/app/(components)/events/scored/ScoredEvent";
-import BowlingPage from "@/app/(components)/events/bowling/BowlingPage";
+import BowlingPage from "@/app/(components)/events/Bowling/BowlingPage";
 
 const BASE_URL = process.env.BASE_URL;
 
