@@ -1,5 +1,7 @@
 "use client";
 import React, { useState } from "react";
+import ShowUpload from "./uploads/ShowUpload";
+import Link from "next/link";
 
 const Standings = ({ teams }) => {
   const [order, setOrder] = useState("asc");
@@ -55,16 +57,21 @@ const Standings = ({ teams }) => {
     );
   };
 
-  const StandingRow = ({ team, points }) => {
+  const StandingRow = ({ team, logo }) => {
     return (
       <div className="flex justify-between w-full h-10 bg-gray-700 px-8">
-        <div className="w-1/6 text-center overflow-hidden whitespace-nowrap overflow-ellipsis">
-          {team.abbreviation}
+        <div className="w-1/4 text-center overflow-hidden whitespace-nowrap overflow-ellipsis flex items-center">
+          <Link href={`/teams/${team.teamId}`} className="flex">
+            <div className="w-10 mr-2">
+              <ShowUpload imageurl={team.logo} altText={team.name} size={32} />
+            </div>
+            {team.abbreviation}
+          </Link>
         </div>
-        <div className="w-1/6 text-right">{team.totalPoints}</div>
-        <div className="w-1/6 text-right">{team.first.length}</div>
-        <div className="w-1/6 text-right">{team.second.length}</div>
-        <div className="w-1/6 text-right">{team.third.length}</div>
+        <div className="w-1/5 text-right">{team.totalPoints}</div>
+        <div className="w-1/5 text-right">{team.first.length}</div>
+        <div className="w-1/5 text-right">{team.second.length}</div>
+        <div className="w-1/5 text-right">{team.third.length}</div>
         <div className="w-1/6 text-right hidden md:block">
           {team.fourth.length}
         </div>

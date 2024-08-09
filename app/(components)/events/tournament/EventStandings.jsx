@@ -1,23 +1,32 @@
 // This component displays the standings of a tournament event. It is used in the Tournament component.
+import Link from "next/link";
+import ShowUpload from "../../uploads/ShowUpload";
 
 const EventStandingHeader = () => {
   return (
     <div className="flex justify-between w-full h-10 bg-gray-800 px-8 pt-1 rounded-t-md">
-      <div className="w-1/4">Place</div>
-      <div className="w-1/2 text-center">Team</div>
-      <div className="w-1/4 text-right">Points</div>
+      <div className="w-1/6">Place</div>
+      <div className="w-2/3 text-center">Team</div>
+      <div className="w-1/6 text-right">Points</div>
     </div>
   );
 };
 
-const EvbentStandingRow = ({ place, teamName, points }) => {
+const EventStandingRow = ({ place, teamName, points, teamLogo }) => {
   return (
     <div className="flex justify-between w-full h-10 bg-gray-700 px-8">
-      <div className="w-1/4">{place}</div>
-      <div className="w-1/2 text-center overflow-hidden whitespace-nowrap overflow-ellipsis">
-        {teamName}
-      </div>
-      <div className="w-1/4 text-right">{points}</div>
+      <div className="w-1/6">{place}</div>
+      <Link href={`/teams/${teamName}`} className="flex flex-row w-full">
+        <div className="w-1/6">
+          {teamLogo ? (
+            <ShowUpload imageurl={teamLogo} altText={teamName} size={32} />
+          ) : null}
+        </div>
+        <div className="w-7/12 text-left overflow-hidden whitespace-nowrap overflow-ellipsis">
+          {teamName}
+        </div>
+      </Link>
+      <div className="w-1/12 text-right">{points}</div>
     </div>
   );
 };
@@ -46,27 +55,24 @@ const EventStandings = ({ games, teams, event }) => {
     const place = placeArray[index];
     const points = pointArray[index];
     let teamName = "TBD";
+    let logo = "";
     if (team) {
       teamName = teams.find((t) => t.teamId === team).name;
+      logo = teams.find((t) => t.teamId === team).logo;
     }
-    return { place, teamName, points, index };
+    return { place, teamName, points, index, logo };
   });
 
-  const columns = [
-    { field: "place", headerName: "Place", width: 100 },
-    { field: "teamName", headerName: "Team", width: 200 },
-    { field: "points", headerName: "Points", width: 100 },
-  ];
-
   let table = (
-    <div className="flex flex-col items-center w-4/5 bg-gray-800 rounded-md">
+    <div className="flex flex-col items-center w-11/12 bg-gray-800 rounded-md">
       <EventStandingHeader />
       {rows.map((row) => (
-        <EvbentStandingRow
+        <EventStandingRow
           key={row.index}
           place={row.place}
           teamName={row.teamName}
           points={row.points}
+          teamLogo={row.logo}
         />
       ))}
     </div>

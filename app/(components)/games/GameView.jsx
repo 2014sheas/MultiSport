@@ -2,6 +2,8 @@
 import React from "react";
 import { useUser } from "@auth0/nextjs-auth0/client";
 import { useRouter } from "next/navigation";
+import ShowUpload from "@/app/(components)/uploads/ShowUpload";
+import Link from "next/link";
 
 const GameView = ({ teams, game }) => {
   const router = useRouter();
@@ -15,6 +17,15 @@ const GameView = ({ teams, game }) => {
   const hasHomeTeam = homeTeam ? true : false;
   const hasAwayTeam = awayTeam ? true : false;
   const hasTeams = hasHomeTeam && hasAwayTeam;
+
+  let homeLogo = "";
+  let awayLogo = "";
+  if (hasHomeTeam) {
+    homeLogo = homeTeam.logo;
+  }
+  if (hasAwayTeam) {
+    awayLogo = awayTeam.logo;
+  }
 
   const onEdit = () => {
     router.push(`/games/editGame/${game.gameId}`);
@@ -42,19 +53,32 @@ const GameView = ({ teams, game }) => {
     }
   };
 
+  const teamContent = (team) => {
+    return (
+      <div className="text-center overflow-hidden whitespace-nowrap overflow-ellipsis flex items-center">
+        <Link href={`/teams/${team.teamId}`} className="flex">
+          <div className="w-10 mr-2">
+            <ShowUpload imageurl={team.logo} altText={team.name} size={32} />
+          </div>
+          {team.abbreviation}
+        </Link>
+      </div>
+    );
+  };
+
   return (
     <div className="flex flex-col items-center border-2 rounded-lg py-4 bg-slate-900 w-5/6 md:w-3/5 max-w-[600px]">
       <h2> {game.status}</h2>
       <div className="flex flex-row  justify-between w-1/2">
         <div className="flex flex-col items-center w-1/2">
           <label className="text-center font-bold text-lg">
-            {hasHomeTeam ? homeTeam.abbreviation : `${game.homeTeam})`}
+            {hasHomeTeam ? teamContent(homeTeam) : `${game.homeTeam})`}
           </label>
           {homeScoreSwitch(game.status)}
         </div>
         <div className="flex flex-col items-center w-1/2">
           <label className="text-center font-bold text-lg">
-            {hasAwayTeam ? awayTeam.abbreviation : `(${game.awayTeam})`}
+            {hasAwayTeam ? teamContent(awayTeam) : `(${game.awayTeam})`}
           </label>
           {awayScoreSwitch(game.status)}
         </div>

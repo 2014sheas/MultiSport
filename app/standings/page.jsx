@@ -13,9 +13,28 @@ const getTeams = async () => {
   }
 };
 
+const getImage = async (fileName) => {
+  try {
+    const res = await fetch(`${process.env.BASE_URL}/api/Upload/${fileName}`, {
+      cache: "no-store",
+    });
+
+    if (!res.ok) {
+      throw new Error("Failed to fetch image");
+    }
+    const data = await res.text();
+    return data;
+  } catch (error) {
+    console.error("Error fetching image:", error);
+  }
+};
+
 const StandingsPage = async () => {
   const teams = await getTeams();
   teams.sort((a, b) => b.totalPoints - a.totalPoints);
+  for (const team of teams) {
+    team.logo = await getImage(team.logoUrl);
+  }
   return (
     <div className="flex flex-col items-center">
       <br />

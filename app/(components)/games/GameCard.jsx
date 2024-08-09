@@ -1,4 +1,16 @@
 import Link from "next/link";
+import ShowUpload from "@/app/(components)/uploads/ShowUpload";
+
+const teamContent = (team) => {
+  return (
+    <div className="text-center overflow-hidden whitespace-nowrap overflow-ellipsis flex items-center">
+      <div className="w-10 mr-2">
+        <ShowUpload imageurl={team.logo} altText={team.name} size={32} />
+      </div>
+      {team.abbreviation}
+    </div>
+  );
+};
 
 const GameCard = ({ game, allGames, event, teams }) => {
   const homeTeam = teams.find((team) => team.teamId === game.homeTeam);
@@ -38,11 +50,11 @@ const GameCard = ({ game, allGames, event, teams }) => {
         </div>
         <div className="flex flex-col bg-slate-800 m-0 p-1 w-inherit rounded-b-md">
           <div className="flex flex-row justify-between">
-            <div>{hasHomeTeam ? homeTeam.abbreviation : game.homeTeam}</div>
+            <div>{hasHomeTeam ? teamContent(homeTeam) : game.homeTeam}</div>
             <div>{hasTeams ? game.homeScore : ""}</div>
           </div>
           <div className="flex flex-row justify-between">
-            <div>{hasAwayTeam ? awayTeam.abbreviation : game.awayTeam}</div>
+            <div>{hasAwayTeam ? teamContent(awayTeam) : game.awayTeam}</div>
             <div>{hasTeams ? game.awayScore : ""}</div>
           </div>
         </div>

@@ -47,6 +47,22 @@ const getGames = async () => {
   }
 };
 
+const getImage = async (fileName) => {
+  try {
+    const res = await fetch(`${BASE_URL}/api/Upload/${fileName}`, {
+      cache: "no-store",
+    });
+
+    if (!res.ok) {
+      throw new Error("Failed to fetch image");
+    }
+    const data = await res.text();
+    return data;
+  } catch (error) {
+    console.error("Error fetching image:", error);
+  }
+};
+
 const EventPage = async ({ params }) => {
   let eventData = await getEventById(params.id);
   let teams = await getTeams();
@@ -55,6 +71,10 @@ const EventPage = async ({ params }) => {
   let eventGames = games.filter((game) => game.event == params.id);
 
   eventData = eventData.foundEvent;
+
+  for (const team of teams) {
+    team.logo = await getImage(team.logoUrl);
+  }
 
   if (eventData === undefined) {
     return <div>Event Not Found</div>;
