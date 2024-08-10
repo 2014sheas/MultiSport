@@ -227,7 +227,7 @@ const GameEdit = ({ allGames, teams, game, event }) => {
     if (event.status === "Completed") {
       // return disabled button
       return (
-        <button type="submit" className="btn bg-slate-500" disabled>
+        <button type="submit" className="btn bg-slate-500 w-3/4" disabled>
           Event Completed
         </button>
       );
@@ -235,7 +235,7 @@ const GameEdit = ({ allGames, teams, game, event }) => {
     switch (status) {
       case "Upcoming":
         return (
-          <button type="submit" className="btn" onClick={onStartGame}>
+          <button type="submit" className="btn w-1/2" onClick={onStartGame}>
             Start Game
           </button>
         );
@@ -243,7 +243,7 @@ const GameEdit = ({ allGames, teams, game, event }) => {
         return (
           <div className="flex flex-col">
             <br />
-            <button type="submit" className="btn" onClick={onSubmit}>
+            <button type="submit" className="btn w-1/2" onClick={onSubmit}>
               Update Score
             </button>
             <br />
@@ -256,11 +256,15 @@ const GameEdit = ({ allGames, teams, game, event }) => {
         return (
           <div className="flex flex-col">
             <br />
-            <button type="submit" className="btn" onClick={onSubmit}>
+            <button type="submit" className="btn w-1/4" onClick={onSubmit}>
               Update Score
             </button>
             <br />
-            <button type="submit" className="btn" onClick={onCompleteGame}>
+            <button
+              type="submit"
+              className="btn w-1/4"
+              onClick={onCompleteGame}
+            >
               Complete Game
             </button>
           </div>
