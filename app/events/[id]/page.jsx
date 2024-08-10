@@ -92,7 +92,10 @@ const EventPage = async ({ params }) => {
     if (isAdmin) {
       return (
         <div className="flex flex-col items-center w-full">
-          <Link href={`/admin/events/${eventData._id}`} className="w-full ">
+          <Link
+            href={`/admin/eventEdit/${eventData.eventId}`}
+            className="w-full "
+          >
             <button className="btn w-full">Edit Event</button>
           </Link>
           <br />

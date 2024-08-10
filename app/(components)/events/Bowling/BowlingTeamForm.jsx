@@ -25,6 +25,12 @@ const BowlingTeamForm = ({ team, players }) => {
     }
   });
 
+  for (const player of playersOnTeam) {
+    if (!player.bowlScore || player.bowlScore.length === 0) {
+      player.bowlScore = [0, 0];
+    }
+  }
+
   // form to edit each team member's bowlScore
   const [formData, setFormData] = useState({
     scores: playersOnTeam.map((player) => ({
@@ -35,19 +41,21 @@ const BowlingTeamForm = ({ team, players }) => {
 
   const handleChange = (e, index) => {
     const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      scores: formData.scores.map((score) =>
-        score.playerId === name
-          ? {
-              ...score,
-              scores: score.scores.map((s, i) =>
-                i === index ? Number(value) : s
-              ),
-            }
-          : score
-      ),
+    console.log(name, value);
+    console.log(formData.scores);
+    const indexToUpdate = formData.scores.findIndex(
+      (score) => score.playerId === name
+    );
+    const updatedScores = [...formData.scores];
+    updatedScores[indexToUpdate].scores[index] = value;
+
+    updatedScores[indexToUpdate].scores = updatedScores[
+      indexToUpdate
+    ].scores.map((score) => {
+      return parseInt(score);
     });
+
+    setFormData({ ...formData, scores: updatedScores });
   };
 
   //loop through all players on team and update thweir bowlScore
@@ -59,7 +67,7 @@ const BowlingTeamForm = ({ team, players }) => {
         (player) => player.playerId === score.playerId
       );
       const updatedPlayer = { ...player, bowlScore: score.scores };
-      console.log(updatedPlayer);
+
       const res = await fetch(`/api/Players/${player._id}`, {
         method: "PUT",
         body: JSON.stringify({ formData: updatedPlayer }),
