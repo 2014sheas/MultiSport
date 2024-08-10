@@ -23,6 +23,8 @@ const GameEdit = ({ allGames, teams, game, event }) => {
   };
 
   const onSubmit = async (e) => {
+    formData.homeScore = parseInt(formData.homeScore);
+    formData.awayScore = parseInt(formData.awayScore);
     e.preventDefault();
     const res = await fetch(`/api/Games/${game._id}`, {
       method: "PUT",
@@ -48,6 +50,9 @@ const GameEdit = ({ allGames, teams, game, event }) => {
     let loserNextGame = allGames.find(
       (game) => game.gameId === formData.loserNextGame
     );
+
+    formData.homeScore = parseInt(formData.homeScore);
+    formData.awayScore = parseInt(formData.awayScore);
 
     const res = await fetch(`/api/Games/${game._id}`, {
       method: "PUT",
@@ -110,14 +115,24 @@ const GameEdit = ({ allGames, teams, game, event }) => {
 
   const onCompleteGame = async (e) => {
     e.preventDefault();
+
+    //make homescore and awayscore numbers
+    formData.homeScore = parseInt(formData.homeScore);
+    formData.awayScore = parseInt(formData.awayScore);
+
     if (formData.homeScore === formData.awayScore) {
       alert("Game cannot end in a tie.");
     }
-    formData.winner =
-      formData.homeScore > formData.awayScore ? game.homeTeam : game.awayTeam;
-    formData.loser =
-      formData.homeScore < formData.awayScore ? game.homeTeam : game.awayTeam;
+    if (formData.homeScore > formData.awayScore) {
+      formData.winner = game.homeTeam;
+      formData.loser = game.awayTeam;
+    } else {
+      formData.winner = game.awayTeam;
+      formData.loser = game.homeTeam;
+    }
     formData.status = "Completed";
+
+    console.log(formData);
 
     let winnerNextGame = allGames.find(
       (game) => game.gameId === formData.winnerNextGame
