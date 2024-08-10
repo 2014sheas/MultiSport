@@ -1,33 +1,22 @@
 "use client";
 import React from "react";
-import { useUser } from "@auth0/nextjs-auth0/client";
-import { useRouter } from "next/navigation";
-import ShowUpload from "@/app/(components)/uploads/ShowUpload";
 import Link from "next/link";
+import ShowUpload from "@/app/(components)/uploads/ShowUpload";
+import { useRouter } from "next/navigation";
+import { useUser } from "@auth0/nextjs-auth0/client";
 
-const GameView = ({ teams, game }) => {
+function SoftballGameCard({ game, teams, event }) {
+  console.log("in SoftballGameCard");
+  console.log(game);
+  console.log(teams);
+  const team1split = game.awayTeam.split("-");
+  const team2split = game.homeTeam.split("-");
+
   const router = useRouter();
   const { user, error, isLoading } = useUser();
   const userRoles = user?.["https://multisport.games/roles"];
   const isAdmin =
-    userRoles?.includes("admin") ||
-    userRoles?.includes("commish") ||
-    (userRoles?.includes("captain") && game.status === "In Progress");
-
-  const homeTeam = teams.find((team) => team.teamId === game.homeTeam);
-  const awayTeam = teams.find((team) => team.teamId === game.awayTeam);
-  const hasHomeTeam = homeTeam ? true : false;
-  const hasAwayTeam = awayTeam ? true : false;
-  const hasTeams = hasHomeTeam && hasAwayTeam;
-
-  let homeLogo = "";
-  let awayLogo = "";
-  if (hasHomeTeam) {
-    homeLogo = homeTeam.logo;
-  }
-  if (hasAwayTeam) {
-    awayLogo = awayTeam.logo;
-  }
+    userRoles?.includes("admin") || userRoles?.includes("commish");
 
   const onEdit = () => {
     router.push(`/games/editGame/${game.gameId}`);
@@ -56,31 +45,28 @@ const GameView = ({ teams, game }) => {
   };
 
   const teamContent = (team) => {
+    const team1 = teams.find((t) => t.teamId === team[0]);
+    const team2 = teams.find((t) => t.teamId === team[1]);
     return (
       <div className="text-center overflow-hidden whitespace-nowrap overflow-ellipsis flex items-center">
-        <Link href={`/teams/${team.teamId}`} className="flex">
-          <div className="w-10 mr-2">
-            <ShowUpload imageurl={team.logo} altText={team.name} size={32} />
-          </div>
-          {team.abbreviation}
-        </Link>
+        {`${team1.abbreviation} & ${team2.abbreviation}`}
       </div>
     );
   };
 
   return (
     <div className="flex flex-col items-center border-2 rounded-lg py-4 bg-slate-900 w-5/6 md:w-3/5 max-w-[600px]">
-      <h2> {game.status}</h2>
+      <h2> {event.status}</h2>
       <div className="flex flex-row  justify-between w-1/2">
         <div className="flex flex-col items-center w-1/2">
           <label className="text-center font-bold text-lg">
-            {hasHomeTeam ? teamContent(homeTeam) : `${game.homeTeam})`}
+            {teamContent(team1split)}
           </label>
           {homeScoreSwitch(game.status)}
         </div>
         <div className="flex flex-col items-center w-1/2">
           <label className="text-center font-bold text-lg">
-            {hasAwayTeam ? teamContent(awayTeam) : `(${game.awayTeam})`}
+            {teamContent(team2split)}
           </label>
           {awayScoreSwitch(game.status)}
         </div>
@@ -92,6 +78,6 @@ const GameView = ({ teams, game }) => {
       )}
     </div>
   );
-};
+}
 
-export default GameView;
+export default SoftballGameCard;

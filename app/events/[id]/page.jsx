@@ -4,6 +4,7 @@ import BowlingPage from "@/app/(components)/events/Bowling/BowlingPage";
 import BtnShowContent from "@/app/(components)/events/BtnShowContent";
 import { getSession } from "@auth0/nextjs-auth0";
 import Link from "next/link";
+import SoftballPage from "@/app/(components)/events/softball/SoftballPage";
 
 const BASE_URL = process.env.BASE_URL;
 
@@ -118,6 +119,15 @@ const EventPage = async ({ params }) => {
       case "Bowling":
         return (
           <BowlingPage event={eventData} teams={teams} players={players} />
+        );
+      case "Softball":
+        return (
+          <SoftballPage
+            event={eventData}
+            teams={teams}
+            players={players}
+            games={games}
+          />
         );
       default:
         return (

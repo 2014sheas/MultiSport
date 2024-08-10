@@ -55,6 +55,14 @@ const EventSchema = new Schema(
       type: String,
       required: false,
     },
+    combinedteam1: {
+      type: Array,
+      required: false,
+    },
+    combinedteam2: {
+      type: Array,
+      required: false,
+    },
   },
   {
     timestamps: true,

@@ -88,7 +88,7 @@ export async function POST(req) {
   } catch (error) {
     console.log("Error Creating User", error);
     return NextResponse.json(
-      { message: "Error Resetting Teams" },
+      { message: "Error Creating User" },
       { status: 200 }
     );
   }

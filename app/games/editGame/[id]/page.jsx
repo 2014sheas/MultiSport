@@ -1,6 +1,7 @@
 import GameEdit from "@/app/(components)/games/GameEdit";
 import React from "react";
 import { withPageAuthRequired, getSession } from "@auth0/nextjs-auth0";
+import SoftballEditScores from "@/app/(components)/events/softball/SoftballEditScores";
 
 const BASE_URL = process.env.BASE_URL;
 
@@ -52,6 +53,9 @@ const GamePage = async ({ params }) => {
 
   const editSwitch = () => {
     if (canEdit) {
+      if (game.event == "softball") {
+        return <SoftballEditScores game={game} teams={teams} event={event} />;
+      }
       return (
         <GameEdit allGames={games} teams={teams} game={game} event={event} />
       );
