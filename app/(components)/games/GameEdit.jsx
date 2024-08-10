@@ -266,7 +266,7 @@ const GameEdit = ({ allGames, teams, game, event }) => {
   }
 
   return (
-    <div className="flex flex-col items-center border-2 rounded-lg bg-slate-900 w-3/5">
+    <div className="flex flex-col items-center border-2 rounded-lg bg-slate-900 w-11/12">
       <h2> {game.status}</h2>
       <form>
         <div className="flex flex-row justify-between">
