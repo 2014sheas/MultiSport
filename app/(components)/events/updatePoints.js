@@ -128,6 +128,8 @@ const updatePoints = async () => {
     const teamData = teamPoints.find(
       (teamPoint) => teamPoint.teamId === team.teamId
     );
+
+    console.log(teamData);
     team.first = teamData.first;
     team.second = teamData.second;
     team.third = teamData.third;

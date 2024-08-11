@@ -18,7 +18,7 @@ const BowlingActivePage = ({ event, teams, players, user }) => {
   const captainBlock = () => {
     if (isCaptain) {
       const userplayerId = players.find(
-        (player) => player.userId === user.nickname
+        (player) => player.email === user.email
       ).playerId;
       const captainsTeam = teams.find((team) =>
         team.captains.includes(userplayerId)

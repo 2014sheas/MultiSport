@@ -57,7 +57,10 @@ const GamePage = async ({ params }) => {
         return <SoftballEditScores game={game} teams={teams} event={event} />;
       }
       return (
-        <GameEdit allGames={games} teams={teams} game={game} event={event} />
+        <div>
+          <br />
+          <GameEdit allGames={games} teams={teams} game={game} event={event} />
+        </div>
       );
     } else {
       return (

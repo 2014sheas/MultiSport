@@ -91,7 +91,7 @@ const EventForm = ({ event, teams }) => {
     [10, 7, 4, 2],
     [5, 3, 2, 1],
     [15, 10, 6, 3],
-    [10, 10, 4, 4],
+    [10, 10, 5, 5],
   ];
 
   if (EDITMODE) {
@@ -193,7 +193,7 @@ const EventForm = ({ event, teams }) => {
           <option value={0}>10, 7, 4, 2</option>
           <option value={1}>5, 3, 2, 1</option>
           <option value={2}>15, 10, 6, 3</option>
-          <option value={3}>10, 10, 4, 4</option>
+          <option value={3}>10, 10, 5, 5</option>
         </select>
 
         {/* DEBUG */}

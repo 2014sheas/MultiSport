@@ -39,7 +39,7 @@ const PlayerEditPage = async ({ params }) => {
 
   const session = await getSession();
   const user = session?.user;
-  const userCanEdit = user?.nickname === updatePlayerData.userId;
+  const userCanEdit = user?.email === updatePlayerData.email;
 
   if (!updatePlayerData) {
     return <p>Player not found</p>;

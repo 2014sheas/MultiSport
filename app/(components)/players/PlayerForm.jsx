@@ -69,28 +69,13 @@ const PlayerForm = ({ player, events }) => {
   const [formData, setFormData] = useState(startingPlayerData);
 
   return (
-    <div className="flex justify-center">
+    <div className="flex justify-center content-center flex-col items-center">
+      <h1>{`Editing ${player.first_name} ${player.last_name}`}</h1>
       <form
         className="flex flex-col gap-3 w-1/2"
         method="post"
         onSubmit={handleSubmit}
       >
-        <h1>Edit Player</h1>
-        <label>Name:</label>
-        <input
-          type="text"
-          name="name"
-          value={formData.name}
-          onChange={handleChange}
-        />
-
-        <label>Player ID:</label>
-        <input
-          type="text"
-          name="playerId"
-          value={formData.playerId}
-          onChange={handleChange}
-        />
         <label>Nickname:</label>
         <input
           type="text"
@@ -103,20 +88,6 @@ const PlayerForm = ({ player, events }) => {
           type="text"
           name="bio"
           value={formData.bio}
-          onChange={handleChange}
-        />
-        <label>Strengths:</label>
-        <input
-          type="text"
-          name="strengths"
-          value={formData.strengths}
-          onChange={handleChange}
-        />
-        <label>Weaknesses:</label>
-        <input
-          type="text"
-          name="weaknesses"
-          value={formData.weaknesses}
           onChange={handleChange}
         />
         <h3>Event Self-Ratings</h3>

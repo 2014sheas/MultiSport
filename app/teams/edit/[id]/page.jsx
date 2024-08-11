@@ -40,9 +40,7 @@ const TeamEditPage = async ({ params }) => {
   // const userCanEdit = true;
   let userCanEdit = false;
   if (user) {
-    const userPlayer = players.find(
-      (player) => player.userId === user.nickname
-    );
+    const userPlayer = players.find((player) => player.email === user.email);
     const userplayerId = userPlayer?.playerId;
     const userRoles = user?.["https://multisport.games/roles"];
     userCanEdit = userRoles.some((role) => allowedRoles.includes(role));

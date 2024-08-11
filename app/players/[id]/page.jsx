@@ -72,7 +72,7 @@ const PlayerPage = async ({ params }) => {
 
   const session = await getSession();
   const user = session?.user;
-  const userCanEdit = user?.nickname === player.userId;
+  const userCanEdit = user?.email === player.email;
   const userRoles = session?.user["https://multisport.games/roles"];
   const isAdmin =
     userRoles?.includes("admin") || userRoles?.includes("commish");

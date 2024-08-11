@@ -18,7 +18,7 @@ const NavMobile = () => {
         <div className="flex flex-row text-white">
           <div>
             <span className="pr-5">
-              <a href={`/players/${user.nickname}`}>{user.name}</a>
+              <a href={`/players/${user.email}`}>{user.email}</a>
             </span>
           </div>
           <a

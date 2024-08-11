@@ -10,7 +10,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
 import { useUser } from "@auth0/nextjs-auth0/client";
 
-const NavMobile = () => {
+const NavMobile = ({ players }) => {
   const { user } = useUser();
 
   const userRoles = user?.["https://multisport.games/roles"];
@@ -20,11 +20,15 @@ const NavMobile = () => {
 
   const userSwitch = () => {
     if (user) {
+      const player = players.find((player) => player.email === user.email);
+
       return (
         <div className="flex flex-row text-white">
           <div>
-            <span className="pr-5">
-              <a href={`/players/${user.nickname}`}>{user.name}</a>
+            <span className="pr-5 text-sm">
+              <a
+                href={`/players/${player.first_name}`}
+              >{`${player.playerId}`}</a>
             </span>
           </div>
           <a

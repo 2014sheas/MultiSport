@@ -243,7 +243,7 @@ const GameEdit = ({ allGames, teams, game, event }) => {
         return (
           <div className="flex flex-col">
             <br />
-            <button type="submit" className="btn w-1/2" onClick={onSubmit}>
+            <button type="submit" className="btn" onClick={onSubmit}>
               Update Score
             </button>
             <br />
@@ -256,15 +256,11 @@ const GameEdit = ({ allGames, teams, game, event }) => {
         return (
           <div className="flex flex-col">
             <br />
-            <button type="submit" className="btn w-1/4" onClick={onSubmit}>
+            <button type="submit" className="btn" onClick={onSubmit}>
               Update Score
             </button>
             <br />
-            <button
-              type="submit"
-              className="btn w-1/4"
-              onClick={onCompleteGame}
-            >
+            <button type="submit" className="btn" onClick={onCompleteGame}>
               Complete Game
             </button>
           </div>
@@ -299,6 +295,7 @@ const GameEdit = ({ allGames, teams, game, event }) => {
               name="homeScore"
               value={formData.homeScore}
               onChange={onFormChange}
+              className="text-center w-1/5"
             />
           </div>
           <div className="flex flex-col items-center w-1/2">
@@ -311,10 +308,13 @@ const GameEdit = ({ allGames, teams, game, event }) => {
               name="awayScore"
               value={formData.awayScore}
               onChange={onFormChange}
+              className="text-center w-1/5"
             />
           </div>
         </div>
-        <div>{buttonSwitch(game.status)}</div>
+        <div className="flex flex-col items-center">
+          {buttonSwitch(game.status)}
+        </div>
       </form>
     </div>
   );
