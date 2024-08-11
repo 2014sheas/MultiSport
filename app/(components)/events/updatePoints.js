@@ -110,7 +110,13 @@ const updatePoints = async () => {
           case "Tournament":
             team[mapIndexTournament[index]].push(event.eventId);
             break;
-          case "Scored":
+          case "Bolwing":
+            team[mapIndexScored[index]].push(event.eventId);
+            break;
+          case "Softball":
+            team[mapIndexScored[index]].push(event.eventId);
+            break;
+          case "Relay":
             team[mapIndexScored[index]].push(event.eventId);
             break;
           case "Tournament4":
